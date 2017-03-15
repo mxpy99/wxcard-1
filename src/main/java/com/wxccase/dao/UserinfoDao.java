@@ -2,7 +2,7 @@ package com.wxccase.dao;
 
 import java.util.Map;
 
-import com.wxccase.entity.Userlogin;
+import com.wxccase.entity.Userinfo;
 
 public interface UserinfoDao {
 	/**
@@ -19,5 +19,5 @@ public interface UserinfoDao {
 	 * 查找 无分页
 	 * @param map
 	 */
-	public Userlogin selectUserinfo(Map map);
+	public Userinfo selectUserinfo(Map map);
 }
