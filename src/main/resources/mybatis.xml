@@ -11,5 +11,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</settings>
 	<mappers>
 		<mapper resource="mapper/UserloginMapper.xml" />
+		<mapper resource="mapper/CardClassifyMapper.xml" />
+		<mapper resource="mapper/CardcaseMapper.xml" />
+		<mapper resource="mapper/UserinfoMapper.xml" />
 	</mappers>
 </configuration>

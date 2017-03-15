@@ -1,5 +1,6 @@
 package com.wxccase.api;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -17,8 +18,7 @@ import com.wxccase.utils.JsonToMap;
 import com.wxccase.utils.PropertiesUtil;
 
 @Controller
-@RequestMapping("user")
-public class UserinfoApi {
+public class UserApi {
 	
 	@Resource
 	private JsonToMap jsonToMap;
@@ -32,29 +32,35 @@ public class UserinfoApi {
 	 * @return
 	 */
 	@RequestMapping("/onlogin")
-	public @ResponseBody Map getCode(@RequestBody String code,HttpServletResponse resp,HttpServletRequest req){
-		Map map = null;
-		System.out.println(map);
-		
-		try {
-			map = jsonToMap.jsonToMapUtil(code);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		code = (String) map.get("code");
-		
-		Map get3rdsession = null;
-		
-		try {
-			get3rdsession = userinfoService.get3rdsession(code);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public @ResponseBody Map getCode(HttpServletResponse resp,HttpServletRequest req){
+		String code = (String) req.getParameter("code");
+		Map map = new HashMap();
+		System.out.println(code);
 		
 		HttpSession session = req.getSession();
-		session.setAttribute("3rd_session", (String) map.get("session_key")+(String) map.get("openid"));
+		String trd_session = (String) session.getAttribute("3rd_session");
+		System.out.println(trd_session);
+		//先进行判断是否为空
+		if(trd_session == null){
+			//为空
+			
+		}else{
+			//不为空 此时上数据库检查  3rd_session 时间是否失效
+			
+			
+			if(0 == 0){
+				//失效
+				
+			}else{
+				//有效
+				
+			}
+			
+		}
+		
+		session.setAttribute("3rd_session", (String) map.get("session_key")+(String) map.get("openid")+"test");
 		map.clear();
+		map.put("s", "sdas");
 		return map;
 	}
 }

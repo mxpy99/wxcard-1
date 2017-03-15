@@ -1,16 +1,17 @@
 package com.wxccase.service.impl;
 
 import java.util.Map;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.wxccase.service.UserinfoService;
+import com.wxccase.utils.IdUtil;
 import com.wxccase.utils.JsonToMap;
 import com.wxccase.utils.NetReqUtil;
 import com.wxccase.utils.PropertiesUtil;
-import com.wxccase.utils.SnowflakeIdUtil;
 
 @Service
 public class UserinfoServiceImpl implements UserinfoService{
@@ -19,7 +20,7 @@ public class UserinfoServiceImpl implements UserinfoService{
 	private PropertiesUtil propertiesUtil;
 	
 	@Resource
-	private SnowflakeIdUtil snowflakeIdUtil;
+	private IdUtil idUtil;
 	
 	@Resource
 	private NetReqUtil netReqUtil;
@@ -56,7 +57,8 @@ public class UserinfoServiceImpl implements UserinfoService{
 			return map;
 		}
 		// 生成 3rd_session 
-		String nextSession = snowflakeIdUtil.nextSession();
+		String nextSession = idUtil.nextSessionId();
+		
 		map.put("session", nextSession);
 		return map;
 	}

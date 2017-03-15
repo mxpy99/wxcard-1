@@ -18,12 +18,8 @@
 		http://www.springframework.org/schema/cache 
 		http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
 		 ">
-		 <!-- 缓存配置 开启注解 -->
     <cache:annotation-driven cache-manager="cacheManager" />  
 	
-	<!-- 一般 -->
-	<!-- 这里的ehcache 是2.6 默认情况下ehcachemanager是单例模式 tongigejvm中不允许多个出现。 这是 使用p:share 进行设置 避免错误出现
-         http://stackoverflow.com/questions/10013288/another-unnamed-cachemanager-already-exists-in-the-same-vm-ehcache-2-5-->
     <bean id="springehcache" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">  
         <property name="configLocation" value="classpath:ehcache.xml"></property>  
     	<property name="shared" value="true"></property>

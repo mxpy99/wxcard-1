@@ -1,5 +1,6 @@
 package com.wxccase.utils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
@@ -11,18 +12,20 @@ public class PropertiesUtil {
 	private static String secret ;
 	
 	static{
-		Properties properties = new Properties();
 		try {
-			InputStream rs = Object.class.getClassLoader().getResourceAsStream("wx.properties");
-			properties.load(rs);
-			wxappid = (String) properties.get("wxappid");
-			secret = (String) properties.get("secret");
+			PropertiesUtil.init();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("微信配置文件异常");
 		}
 	}
 
+	private static void init() throws IOException{
+		Properties properties = new Properties();
+		properties.load(PropertiesUtil.class.getClassLoader().getResourceAsStream("wx.properties"));
+		wxappid = (String) properties.get("wxappid");
+		secret = (String) properties.get("secret");
+	}
 	public static String getWxappid() {
 		return wxappid;
 	}

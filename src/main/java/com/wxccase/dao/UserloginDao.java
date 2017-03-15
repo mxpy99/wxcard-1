@@ -4,20 +4,20 @@ import java.util.Map;
 
 import com.wxccase.entity.Userlogin;
 
-public interface UserinfoDao {
+public interface UserloginDao {
 	/**
 	 * 新增 
 	 * @param map
 	 */
-	public void insertUserinfo(Map map);
+	public void insertUserlogin(Map map);
 	/**
 	 * 更新
 	 * @param map
 	 */
-	public void updateUserinfo(Map map);
+	public void updateUserlogin(Map map);
 	/**
-	 * 查找 无分页
+	 * 查找  无分页
 	 * @param map
 	 */
-	public Userlogin selectUserinfo(Map map);
+	public Userlogin selectUserlogin(Map map);
 }

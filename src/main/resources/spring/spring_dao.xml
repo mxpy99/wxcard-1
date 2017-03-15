@@ -19,9 +19,7 @@
 		http://www.springframework.org/schema/cache/spring-cache-3.2.xsd
 		 ">
 		
-	  <!-- 开启注解 -->
     <context:annotation-config></context:annotation-config>
-    <!-- 导入外部的properties配置文件 -->
 	<!-- <context:property-placeholder location="classpath:db.properties"/> -->
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">    
 	    <property name="locations">    
@@ -30,27 +28,22 @@
 	        </list>    
 	    </property>    
 	</bean> 
-    <!-- 配置后 mybatis的数据库配置失效 -->
     <bean id="pooledDataSource" class="com.alibaba.druid.pool.DruidDataSource">
-    	<!-- 数据库的连接配置 -->
     	<property name="url" value="${jdbcurl}" />
      	<property name="username" value="${username}" />
      	<property name="password" value="${password}" />
 		<property name="driverClassName" value="${driverClassName}"/>
     </bean>	
 	
-	<!-- 配置SqlSessionFactoryBean，目的：加载mybaits配置文件和映射文件，即替代原Mybatis工具类的作用 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="configLocation" value="classpath:mybatis.xml"></property>
 		<property name="dataSource" ref="pooledDataSource" />
 	</bean>
 	
-	<!-- 配置Mybatis的事务管理器，即因为Mybatis底层用的jdbc事务管理器，所以在这里配置依然是jdbc事务管理器 -->
     <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     	<property name="dataSource" ref="pooledDataSource"></property>
     </bean>
     
-    <!-- 配置事务通知  即让那些方法需要事务 -->
     <tx:advice id="tx" transaction-manager="dataSourceTransactionManager">
     	<tx:attributes>
     		<tx:method name="select*" read-only="true"/>
@@ -58,11 +51,8 @@
     	</tx:attributes> 
     </tx:advice>
     
-    <!-- 配置事务切面 即让指定的包下的类需要事务 -->
     <aop:config>
-    	<!-- 这里的controller 要按照 上面的find* 等的规范进行命名，以便事务管理 -->
-    	<!-- <aop:pointcut expression="bean(*Service)" id="serviceOperation"/> -->
-    	<aop:pointcut expression="execution(* haust.vk.service.*.*(..))" id="serviceOperation"/> 
+    	<aop:pointcut expression="execution(* com.wxccase.service.*.*(..))" id="serviceOperation"/> 
     	<aop:advisor advice-ref="tx" pointcut-ref="serviceOperation"/>
     </aop:config>
 

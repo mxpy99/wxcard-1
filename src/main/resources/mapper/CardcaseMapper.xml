@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxccase.dao.CardcaseDao" >
+	<insert id="insertCard" parameterType="com.wxccase.entity.Cardcase">
+	
+	</insert>
+	
+	<update id="updateCard" parameterType="com.wxccase.entity.Cardcase">
+	
+	</update>
+	
+	<select id="selectCard" parameterType="java.util.Map" resultType="com.wxccase.entity.Cardcase">
+	
+	</select>
+	
+	<select id="selectCardCount" parameterType="java.util.Map" resultType="string">
+	
+	</select>
+	
+	<delete id="deleteCard" parameterType="java.util.Map">
+	
+	</delete>
+</mapper>
