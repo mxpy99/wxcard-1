@@ -20,7 +20,9 @@
 #### 数据库相关
 ##### 初始用户（测试使用）
 ```sql
-
+INSERT INTO `cardcase`.`userinfo` 
+(`userid`, `wxid`, `accountname`, `gender`, `avatarurl`) 
+VALUES ('1', '111', 'test', '1', 'http://dwz.cn/5xYP38');
 ```
 ##### 建表语句
 ```sql
