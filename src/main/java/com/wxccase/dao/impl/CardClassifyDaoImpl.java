@@ -7,10 +7,12 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Repository;
 
 import com.wxccase.dao.CardClassifyDao;
 import com.wxccase.entity.CardClassify;
 
+@Repository
 public class CardClassifyDaoImpl implements CardClassifyDao{
 
 	@Resource
@@ -44,6 +46,14 @@ public class CardClassifyDaoImpl implements CardClassifyDao{
 		SqlSession os = sqlSessionFactory.openSession();
 		os.delete("deleteClassify", map);
 		os.close();
+	}
+
+	@Override
+	public List<CardClassify> selectClassifyDetail(Map map) {
+		SqlSession os = sqlSessionFactory.openSession();
+		List<CardClassify> list = os.selectList("selectClassifyDetail", map);
+		os.close();
+		return list;
 	}
 
 }

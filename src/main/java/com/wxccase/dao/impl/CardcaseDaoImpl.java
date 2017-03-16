@@ -7,10 +7,12 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Repository;
 
 import com.wxccase.dao.CardcaseDao;
 import com.wxccase.entity.Cardcase;
 
+@Repository
 public class CardcaseDaoImpl implements CardcaseDao{
 
 	@Resource
@@ -51,6 +53,21 @@ public class CardcaseDaoImpl implements CardcaseDao{
 		SqlSession os = sqlSessionFactory.openSession();
 		os.delete("deleteCard", map);
 		os.close();
+	}
+
+	@Override
+	public void updateCardClassify(Map map) {
+		SqlSession os = sqlSessionFactory.openSession();
+		os.update("updateCardClassify", map);
+		os.close();
+	}
+
+	@Override
+	public Cardcase selectCardDetail(Map map) {
+		SqlSession os = sqlSessionFactory.openSession();
+		Cardcase cardcase = os.selectOne("selectCardDetail", map);
+		os.close();
+		return cardcase;
 	}
 
 }

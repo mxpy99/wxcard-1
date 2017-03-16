@@ -2,22 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxccase.dao.CardcaseDao" >
 	<insert id="insertCard" parameterType="com.wxccase.entity.Cardcase">
-	
+			insert into cardinfo(cardid,userid,classifyid,icon,userName,profession,isConcern,describe,company,address,qqNumber,wechatNumber,phoneNumber,telephoneNumber,faxNumber,website,mail,companyLogo) 
+			values(#{cardid}, #{userid}, #{classifyid}, #{icon}, #{userName}, #{profession}, #{isConcern}, #{describe}, #{company}, #{address}, #{qqNumber}, #{wechatNumber}, #{phoneNumber}, #{telephoneNumber}, #{faxNumber}, #{website}, #{mail}, #{companyLogo}) 
 	</insert>
 	
 	<update id="updateCard" parameterType="com.wxccase.entity.Cardcase">
+			update cardinfo 
+			set 
+			   classifyid = #{classifyid},icon = #{icon},userName = #{userName},profession = #{profession},isConcern = #{isConcern},describe = #{describe},company = #{company},address = #{address},qqNumber = #{qqNumber},wechatNumber = #{wechatNumber},phoneNumber = #{phoneNumber},telephoneNumber = #{telephoneNumber}, faxNumber = #{faxNumber} ,website = #{website},mail = #{mail},companyLogo = #{companyLogo})
+			where
+			   cardid = #{cardid}
+	</update>
 	
+	<update id="updateCardClassify" parameterType="java.util.Map">
+		update cardinfo set classifyid = #{new_classifyid} where classyid = #{old_classifyid}
 	</update>
 	
 	<select id="selectCard" parameterType="java.util.Map" resultType="com.wxccase.entity.Cardcase">
+	    select * from cardinfo where userid = #{userid}
+	     <if test="classifyid != null"> AND classifyid = #{classifyid} </if>
+	     limit #{start},#{size}
+	</select>
 	
+	<select id="selectCardDetail" parameterType="java.util.Map" resultType="com.wxccase.entity.Cardcase">
+	    select * from cardinfo where cardid = #{cardid}
 	</select>
 	
 	<select id="selectCardCount" parameterType="java.util.Map" resultType="string">
-	
+		select count(cardid) from cardinfo where userid = #{userid}   <if test="classifyid != null"> AND classifyid = #{classifyid} </if>
 	</select>
 	
 	<delete id="deleteCard" parameterType="java.util.Map">
-	
+		delete cardinfo where cardid = #{cardid}
 	</delete>
 </mapper>

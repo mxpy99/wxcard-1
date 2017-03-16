@@ -31,4 +31,15 @@ public interface CardcaseDao {
 	 * @param map
 	 */
 	public void deleteCard(Map map);
+	/**
+	 * 更改分类
+	 * @param map
+	 */
+	public void updateCardClassify(Map map);
+	/**
+	 * 查看详情
+	 * @param map
+	 * @return
+	 */
+	public Cardcase selectCardDetail(Map map);
 }

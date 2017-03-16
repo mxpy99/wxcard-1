@@ -6,10 +6,12 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Repository;
 
 import com.wxccase.dao.UserinfoDao;
 import com.wxccase.entity.Userinfo;
 
+@Repository
 public class UserinfoDaoImpl implements UserinfoDao{
 
 	@Resource

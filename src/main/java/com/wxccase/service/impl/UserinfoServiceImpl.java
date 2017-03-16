@@ -1,5 +1,6 @@
 package com.wxccase.service.impl;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -7,6 +8,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.wxccase.dao.UserinfoDao;
+import com.wxccase.dao.UserloginDao;
+import com.wxccase.entity.Userinfo;
 import com.wxccase.service.UserinfoService;
 import com.wxccase.utils.IdUtil;
 import com.wxccase.utils.JsonToMap;
@@ -28,38 +32,81 @@ public class UserinfoServiceImpl implements UserinfoService{
 	@Resource
 	private JsonToMap jsonToMap;
 	
+	@Resource
+	private UserinfoDao userinfoDao;
+	
+	@Resource
+	private UserloginDao userloginDao;
+	
 	@Override
-	public Map get3rdsession(String code) {
+	public Map get3rdsession(String code) throws Exception{
 		Map map = null ;
-		//请求如下链接 获取 session_key 和 openid  https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
 		String json = null ;
+		String nextSession = null;
+		long nextUserId = 1L;
+		String session_key = null;
+		Userinfo user = null;
+		String openid = null;
+		
 		try {
-			json = netReqUtil.loadJson("https://api.weixin.qq.com/sns/jscode2session?appid="+propertiesUtil.getWxappid()+"&secret="+propertiesUtil.getSecret()+"&js_code="+code+"&grant_type=authorization_code");
+			//请求如下链接 获取 session_key 和 openid  https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
+			System.out.println(propertiesUtil.getWxappid()+"==="+propertiesUtil.getSecret());
+			//json = netReqUtil.loadJson("https://api.weixin.qq.com/sns/jscode2session?appid="+propertiesUtil.getWxappid()+"&secret="+propertiesUtil.getSecret()+"&js_code="+code+"&grant_type=authorization_code");
+			json = "{\"openid\":111,\"session_key\":1}";
+			System.out.println(json);
 		} catch (Exception e1) {
 			e1.printStackTrace();
+			map = new HashMap();
+			map.put("messcode", "4");
+			return map;
 		}
 		
 		try {
 			map = jsonToMap.jsonToMapUtil(json);
+			openid = (String) map.get("openid");
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		String openid = (String) map.get("openid");
-		
-		if(openid == null ){
-			System.out.println(json);
-			try {
-				map = jsonToMap.jsonToMapUtil(json);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			map = new HashMap();
+			map.put("messcode", "4");
 			return map;
 		}
-		// 生成 3rd_session 
-		String nextSession = idUtil.nextSessionId();
 		
-		map.put("session", nextSession);
+		if(openid == null){
+			map.clear();
+			map.put("messcode", json);
+			return map;
+		}
+		
+		session_key = (String) map.get("session_key");
+		
+		//查询此用户是否存在
+		user = userinfoDao.selectUserinfo(map);
+		if(user == null){
+			//新增用户
+			nextUserId = idUtil.nextUserId();
+			map.clear();
+			map.put("wxid", openid);
+			map.put("userid", String.valueOf(nextUserId));
+			userinfoDao.insertUserinfo(map);
+			//新增userlogin 记录
+			nextSession = idUtil.nextSessionId();
+			map.remove("wxid");
+			map.put("trdsession", nextSession);
+			map.put("sessionkey", session_key);
+			userloginDao.insertUserlogin(map);
+		}else{
+			//更新用户 userlogin
+			map.clear();
+			nextSession = idUtil.nextSessionId();
+			map.put("trdsession", nextSession);
+			map.put("sessionkey", session_key);
+			map.put("userid", user.getUserid());
+			userloginDao.updateUserlogin(map);
+		}
+		map.clear();
+		map.put("nextSession", nextSession);
+		map.put("session_key", session_key);
+		map.put("openid", openid);
 		return map;
 	}
 	

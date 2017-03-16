@@ -26,4 +26,9 @@ public interface CardClassifyDao {
 	 * @param map
 	 */
 	public void deleteClassify(Map map);
+	/**
+	 * 查找  分类列表  详情
+	 * @param map
+	 */
+	public List<CardClassify> selectClassifyDetail(Map map);
 }
