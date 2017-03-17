@@ -23,7 +23,6 @@ public class CardClassifyDaoImpl implements CardClassifyDao{
 		SqlSession os = sqlSessionFactory.openSession();
 		os.insert("insertClassify",map);
 		os.close();
-		
 	}
 
 	@Override

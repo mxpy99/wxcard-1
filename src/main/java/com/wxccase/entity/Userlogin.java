@@ -1,6 +1,8 @@
 package com.wxccase.entity;
 
-public class Userlogin {
+import java.io.Serializable;
+
+public class Userlogin implements Serializable {
 	private String userid;
 	private String trdsession;
 	private String sessionkey;

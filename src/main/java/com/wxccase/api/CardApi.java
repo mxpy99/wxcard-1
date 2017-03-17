@@ -49,18 +49,18 @@ public class CardApi {
 			return map;
 		}
 		
-		openid = (String) map.get("openid");
-		pagenum = (String) map.get("pagenum");
-		pagesize = (String) map.get("pagesize");
+		openid = String.valueOf(map.get("openid"));
+		pagenum = String.valueOf(map.get("pagenum"));
+		pagesize = String.valueOf(map.get("pagesize"));
 		
-		if(pagesize == null || "".equals(pagesize) || pagenum == null || "".equals(pagenum) || openid == null || "".equals(openid) ){
+		if(pagesize == null || "".equals(pagesize) || "null".equals(pagesize) || pagenum == null || "".equals(pagenum) || "null".equals(pagenum) || openid == null || "".equals(openid) || "null".equals(openid) ){
 			map.clear();
 			map.put("messcode", 2);
 			return map;
 		}
 		
 		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user.getUserid() == null){
+		if(user == null){
 			map.clear();
 			map.put("messcode", 4);
 			return map;
@@ -108,17 +108,16 @@ public class CardApi {
 			return map;
 		}
 		
-		openid = (String) map.get("openid");
-		cardid = (String) map.get("classifyid");
-		
-		if(cardid == null || "".equals(cardid) || openid == null || "".equals(openid) ){
+		openid = String.valueOf(map.get("openid"));
+		cardid = String.valueOf(map.get("cardid"));
+		if(cardid == null || "".equals(cardid) || "null".equals(cardid) || openid == null || "".equals(openid)|| "null".equals(openid) ){
 			map.clear();
 			map.put("messcode", 2);
 			return map;
 		}
 		
 		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user.getUserid() == null){
+		if(user == null){
 			map.clear();
 			map.put("messcode", 4);
 			return map;
@@ -158,18 +157,18 @@ public class CardApi {
 			return map;
 		}
 		
-		openid = (String) map.get("openid");
-		classifyid = (String) map.get("classifyid");
-		cardid = (String) map.get("classifyid");
+		openid = String.valueOf( map.get("openid"));
+		classifyid = String.valueOf(map.get("classifyid"));
+		cardid = String.valueOf(map.get("cardid"));
 		
-		if(cardid == null || "".equals(cardid) || openid == null || "".equals(openid) || classifyid == null || "".equals(classifyid) ){
+		if(cardid == null || "".equals(cardid) || "null".equals(cardid) || openid == null || "".equals(openid) || "null".equals(openid) || classifyid == null || "".equals(classifyid) || "null".equals(classifyid) ){
 			map.clear();
 			map.put("messcode", 2);
 			return map;
 		}
 		
 		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user.getUserid() == null){
+		if(user == null){
 			map.clear();
 			map.put("messcode", 4);
 			return map;
@@ -207,17 +206,17 @@ public class CardApi {
 			return map;
 		}
 		
-		openid = (String) map.get("openid");
-		cardid = (String) map.get("cardid");
+		openid = String.valueOf(map.get("openid"));
+		cardid = String.valueOf( map.get("cardid"));
 		
-		if(openid == null || "".equals(openid) || cardid == null || "".equals(cardid) ){
+		if(openid == null || "".equals(openid) || "null".equals(openid) || cardid == null || "".equals(cardid) || "null".equals(cardid) ){
 			map.clear();
 			map.put("messcode", 2);
 			return map;
 		}
 		
 		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user.getUserid() == null){
+		if(user == null){
 			map.clear();
 			map.put("messcode", 4);
 			return map;
@@ -256,17 +255,17 @@ public class CardApi {
 			return map;
 		}
 		
-		openid = (String) map.get("openid");
-		classifyid = (String) map.get("classifyid");
+		openid = String.valueOf(map.get("openid"));
+		classifyid = String.valueOf( map.get("classifyid"));
 		
-		if(openid == null || "".equals(openid) || classifyid == null || "".equals(classifyid) ){
+		if(openid == null || "".equals(openid) || "null".equals(openid) || classifyid == null || "".equals(classifyid)  || "null".equals(classifyid) ){
 			map.clear();
 			map.put("messcode", 2);
 			return map;
 		}
 		
 		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user.getUserid() == null){
+		if(user == null){
 			map.clear();
 			map.put("messcode", 4);
 			return map;

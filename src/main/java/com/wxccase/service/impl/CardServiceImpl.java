@@ -27,23 +27,23 @@ public class CardServiceImpl implements CardService{
 		Cardcase cardcase = new Cardcase();
 		
 		//组装参数
-		cardcase.setCardid(((String) map.get("cardid")));
-		cardcase.setClassifyid(((String) map.get("classifyid")));
+		cardcase.setCardid(String.valueOf(map.get("cardid")));
+		cardcase.setClassifyid((String.valueOf(map.get("classifyid"))));
 		cardcase.setIcon(((String) map.get("icon")));
-		cardcase.setUserName(((String) map.get("username")));
-		cardcase.setProfession(((String) map.get("profession")));
-		cardcase.setIsConcern(((String) map.get("isconcern")));
-		cardcase.setDescribe(((String) map.get("describe")));
-		cardcase.setCompany(((String) map.get("company")));
-		cardcase.setAddress(((String) map.get("address")));
-		cardcase.setQqNumber(((String) map.get("qqnumber")));
-		cardcase.setWechatNumber(((String) map.get("wechatnumber")));
-		cardcase.setPhoneNumber(((String) map.get("phonenumber")));
-		cardcase.setTelephoneNumber(((String) map.get("telephonenumber")));
-		cardcase.setFaxNumber(((String) map.get("faxNumber")));
-		cardcase.setWebsite(((String) map.get("website")));
-		cardcase.setMail(((String) map.get("mail")));
-		cardcase.setCompanyLogo(((String) map.get("companylogo")));
+		cardcase.setUsername(String.valueOf( map.get("username")));
+		cardcase.setProfession(String.valueOf( map.get("profession")));
+		cardcase.setIsconcern(String.valueOf(map.get("isconcern")));
+		cardcase.setCarddescribe(String.valueOf( map.get("carddescribe")));
+		cardcase.setCompany(String.valueOf( map.get("company")));
+		cardcase.setAddress(String.valueOf( map.get("address")));
+		cardcase.setQqnumber(String.valueOf( map.get("qqnumber")));
+		cardcase.setWechatnumber(String.valueOf( map.get("wechatnumber")));
+		cardcase.setPhonenumber(String.valueOf( map.get("phonenumber")));
+		cardcase.setTelephonenumber(String.valueOf( map.get("telephonenumber")));
+		cardcase.setFaxnumber(String.valueOf( map.get("faxnumber")));
+		cardcase.setWebsite(String.valueOf( map.get("website")));
+		cardcase.setMail(String.valueOf( map.get("mail")));
+		cardcase.setCompanylogo(String.valueOf( map.get("companylogo")));
 		
 	    //更新
 		cardcaseDaoImpl.updateCard(cardcase);
@@ -60,23 +60,23 @@ public class CardServiceImpl implements CardService{
 		Cardcase cardcase = new Cardcase();
 		//组装参数
 		cardcase.setCardid(String.valueOf(idUtil.nextCardinfoId()));
-		cardcase.setUserid(((String) map.get("userid")));
-		cardcase.setClassifyid(((String) map.get("classifyid")));
+		cardcase.setUserid(String.valueOf(map.get("userid")));
+		cardcase.setClassifyid((String.valueOf(map.get("classifyid"))));
 		cardcase.setIcon(((String) map.get("icon")));
-		cardcase.setUserName(((String) map.get("username")));
-		cardcase.setProfession(((String) map.get("profession")));
-		cardcase.setIsConcern(((String) map.get("isconcern")));
-		cardcase.setDescribe(((String) map.get("describe")));
-		cardcase.setCompany(((String) map.get("company")));
-		cardcase.setAddress(((String) map.get("address")));
-		cardcase.setQqNumber(((String) map.get("qqnumber")));
-		cardcase.setWechatNumber(((String) map.get("wechatnumber")));
-		cardcase.setPhoneNumber(((String) map.get("phonenumber")));
-		cardcase.setTelephoneNumber(((String) map.get("telephonenumber")));
-		cardcase.setFaxNumber(((String) map.get("faxNumber")));
-		cardcase.setWebsite(((String) map.get("website")));
-		cardcase.setMail(((String) map.get("mail")));
-		cardcase.setCompanyLogo(((String) map.get("companylogo")));
+		cardcase.setUsername(String.valueOf( map.get("username")));
+		cardcase.setProfession(String.valueOf( map.get("profession")));
+		cardcase.setIsconcern(String.valueOf(map.get("isconcern")));
+		cardcase.setCarddescribe(String.valueOf( map.get("carddescribe")));
+		cardcase.setCompany(String.valueOf( map.get("company")));
+		cardcase.setAddress(String.valueOf( map.get("address")));
+		cardcase.setQqnumber(String.valueOf( map.get("qqnumber")));
+		cardcase.setWechatnumber(String.valueOf( map.get("wechatnumber")));
+		cardcase.setPhonenumber(String.valueOf( map.get("phonenumber")));
+		cardcase.setTelephonenumber(String.valueOf( map.get("telephonenumber")));
+		cardcase.setFaxnumber(String.valueOf( map.get("faxnumber")));
+		cardcase.setWebsite(String.valueOf( map.get("website")));
+		cardcase.setMail(String.valueOf( map.get("mail")));
+		cardcase.setCompanylogo(String.valueOf( map.get("companylogo")));
 	    
 		cardcaseDaoImpl.insertCard(cardcase);
 		

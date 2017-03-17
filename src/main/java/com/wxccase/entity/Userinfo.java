@@ -1,8 +1,10 @@
 package com.wxccase.entity;
 
-public class Userinfo {
+import java.io.Serializable;
+
+public class Userinfo implements Serializable {
 	private String userid;
-	private String wxid;
+	private String openid;
 	private String accountname;
 	private String gender;
 	private String avatarurl;
@@ -12,11 +14,11 @@ public class Userinfo {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
-	public String getWxid() {
-		return wxid;
+	public String getOpenid() {
+		return openid;
 	}
-	public void setWxid(String wxid) {
-		this.wxid = wxid;
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 	public String getAccountname() {
 		return accountname;
@@ -36,10 +38,9 @@ public class Userinfo {
 	public void setAvatarurl(String avatarurl) {
 		this.avatarurl = avatarurl;
 	}
-	
 	@Override
 	public String toString() {
-		return "Userinfo [userid=" + userid + ", wxid=" + wxid
+		return "Userinfo [userid=" + userid + ", openid=" + openid
 				+ ", accountname=" + accountname + ", gender=" + gender
 				+ ", avatarurl=" + avatarurl + "]";
 	}

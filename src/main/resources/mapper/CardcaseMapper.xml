@@ -2,20 +2,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxccase.dao.CardcaseDao" >
 	<insert id="insertCard" parameterType="com.wxccase.entity.Cardcase">
-			insert into cardinfo(cardid,userid,classifyid,icon,userName,profession,isConcern,describe,company,address,qqNumber,wechatNumber,phoneNumber,telephoneNumber,faxNumber,website,mail,companyLogo) 
-			values(#{cardid}, #{userid}, #{classifyid}, #{icon}, #{userName}, #{profession}, #{isConcern}, #{describe}, #{company}, #{address}, #{qqNumber}, #{wechatNumber}, #{phoneNumber}, #{telephoneNumber}, #{faxNumber}, #{website}, #{mail}, #{companyLogo}) 
+			insert into cardinfo(cardid,userid,classifyid,icon,username,profession,isconcern,carddescribe,company,address,qqnumber,wechatnumber,phonenumber,telephonenumber,faxnumber,website,mail,companylogo) 
+			values(#{cardid}, #{userid}, #{classifyid}, #{icon}, #{username}, #{profession}, #{isconcern}, #{carddescribe}, #{company}, #{address}, #{qqnumber}, #{wechatnumber}, #{phonenumber}, #{telephonenumber}, #{faxnumber}, #{website}, #{mail}, #{companylogo}) 
 	</insert>
 	
 	<update id="updateCard" parameterType="com.wxccase.entity.Cardcase">
 			update cardinfo 
 			set 
-			   classifyid = #{classifyid},icon = #{icon},userName = #{userName},profession = #{profession},isConcern = #{isConcern},describe = #{describe},company = #{company},address = #{address},qqNumber = #{qqNumber},wechatNumber = #{wechatNumber},phoneNumber = #{phoneNumber},telephoneNumber = #{telephoneNumber}, faxNumber = #{faxNumber} ,website = #{website},mail = #{mail},companyLogo = #{companyLogo})
+			   classifyid = #{classifyid},icon = #{icon},username = #{username},profession = #{profession},isconcern = #{isconcern},carddescribe = #{carddescribe},company = #{company},address = #{address},qqnumber = #{qqnumber},wechatnumber = #{wechatnumber},phonenumber = #{phonenumber},telephonenumber = #{telephonenumber}, faxnumber = #{faxnumber} ,website = #{website},mail = #{mail},companylogo = #{companylogo}
 			where
 			   cardid = #{cardid}
 	</update>
 	
 	<update id="updateCardClassify" parameterType="java.util.Map">
-		update cardinfo set classifyid = #{new_classifyid} where classyid = #{old_classifyid}
+		update cardinfo set classifyid = #{new_classifyid} where classifyid = #{old_classifyid}
 	</update>
 	
 	<select id="selectCard" parameterType="java.util.Map" resultType="com.wxccase.entity.Cardcase">
@@ -33,6 +33,6 @@
 	</select>
 	
 	<delete id="deleteCard" parameterType="java.util.Map">
-		delete cardinfo where cardid = #{cardid}
+		delete from cardinfo where cardid = #{cardid}
 	</delete>
 </mapper>

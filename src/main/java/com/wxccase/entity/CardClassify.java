@@ -1,6 +1,8 @@
 package com.wxccase.entity;
 
-public class CardClassify {
+import java.io.Serializable;
+
+public class CardClassify implements Serializable {
 	private String classifyid ;
 	private String userid ;
 	private String content ;

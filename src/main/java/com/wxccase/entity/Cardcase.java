@@ -1,24 +1,26 @@
 package com.wxccase.entity;
 
-public class Cardcase {
+import java.io.Serializable;
+
+public class Cardcase implements Serializable{
 	private String cardid ;
 	private String userid ;
 	private String classifyid ;
 	private String icon;
-	private String userName;
+	private String username;
 	private String profession;
-	private String isConcern;
-	private String describe;
+	private String isconcern;
+	private String carddescribe;
 	private String company;
 	private String address;
-	private String qqNumber;
-	private String wechatNumber;
-	private String phoneNumber;
-	private String telephoneNumber;
-	private String faxNumber;
+	private String qqnumber;
+	private String wechatnumber;
+	private String phonenumber;
+	private String telephonenumber;
+	private String faxnumber;
 	private String website;
 	private String mail;
-	private String companyLogo;
+	private String companylogo;
 	
 	public String getCardid() {
 		return cardid;
@@ -44,11 +46,11 @@ public class Cardcase {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getProfession() {
 		return profession;
@@ -56,17 +58,17 @@ public class Cardcase {
 	public void setProfession(String profession) {
 		this.profession = profession;
 	}
-	public String getIsConcern() {
-		return isConcern;
+	public String getIsconcern() {
+		return isconcern;
 	}
-	public void setIsConcern(String isConcern) {
-		this.isConcern = isConcern;
+	public void setIsconcern(String isconcern) {
+		this.isconcern = isconcern;
 	}
-	public String getDescribe() {
-		return describe;
+	public String getCarddescribe() {
+		return carddescribe;
 	}
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	public void setCarddescribe(String carddescribe) {
+		this.carddescribe = carddescribe;
 	}
 	public String getCompany() {
 		return company;
@@ -80,35 +82,41 @@ public class Cardcase {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getQqNumber() {
-		return qqNumber;
+	public String getQqnumber() {
+		return qqnumber;
 	}
-	public void setQqNumber(String qqNumber) {
-		this.qqNumber = qqNumber;
+	public void setQqnumber(String qqnumber) {
+		this.qqnumber = qqnumber;
 	}
-	public String getWechatNumber() {
-		return wechatNumber;
+	public String getWechatnumber() {
+		return wechatnumber;
 	}
-	public void setWechatNumber(String wechatNumber) {
-		this.wechatNumber = wechatNumber;
+	public void setWechatnumber(String wechatnumber) {
+		this.wechatnumber = wechatnumber;
 	}
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public void setTelephonenumber(String telephonenumber) {
+		this.telephonenumber = telephonenumber;
 	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public String getTelephonenumber() {
+		return telephonenumber;
 	}
-	public String getTelephoneNumber() {
-		return telephoneNumber;
+	public String getCompanylogo() {
+		return companylogo;
 	}
-	public void setTelephoneNumber(String telephoneNumber) {
-		this.telephoneNumber = telephoneNumber;
+	public void setCompanylogo(String companylogo) {
+		this.companylogo = companylogo;
 	}
-	public String getFaxNumber() {
-		return faxNumber;
+	public void setFaxnumber(String faxnumber) {
+		this.faxnumber = faxnumber;
 	}
-	public void setFaxNumber(String faxNumber) {
-		this.faxNumber = faxNumber;
+	public String getFaxnumber() {
+		return faxnumber;
+	}
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+	public String getPhonenumber() {
+		return phonenumber;
 	}
 	public String getWebsite() {
 		return website;
@@ -122,12 +130,17 @@ public class Cardcase {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getCompanyLogo() {
-		return companyLogo;
+	@Override
+	public String toString() {
+		return "Cardcase [cardid=" + cardid + ", userid=" + userid
+				+ ", classifyid=" + classifyid + ", icon=" + icon
+				+ ", username=" + username + ", profession=" + profession
+				+ ", isconcern=" + isconcern + ", carddescribe=" + carddescribe
+				+ ", company=" + company + ", address=" + address
+				+ ", qqnumber=" + qqnumber + ", wechatnumber=" + wechatnumber
+				+ ", phonenumber=" + phonenumber + ", telephonenumber="
+				+ telephonenumber + ", faxnumber=" + faxnumber + ", website="
+				+ website + ", mail=" + mail + ", companylogo=" + companylogo
+				+ "]";
 	}
-	public void setCompanyLogo(String companyLogo) {
-		this.companyLogo = companyLogo;
-	}
-	
-	
 }

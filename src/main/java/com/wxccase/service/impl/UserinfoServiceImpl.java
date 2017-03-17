@@ -63,7 +63,7 @@ public class UserinfoServiceImpl implements UserinfoService{
 		
 		try {
 			map = jsonToMap.jsonToMapUtil(json);
-			openid = (String) map.get("openid");
+			openid = String.valueOf( map.get("openid") );
 		} catch (Exception e) {
 			e.printStackTrace();
 			map = new HashMap();
@@ -77,7 +77,7 @@ public class UserinfoServiceImpl implements UserinfoService{
 			return map;
 		}
 		
-		session_key = (String) map.get("session_key");
+		session_key = String.valueOf( map.get("session_key") );
 		
 		//查询此用户是否存在
 		user = userinfoDao.selectUserinfo(map);
@@ -85,12 +85,12 @@ public class UserinfoServiceImpl implements UserinfoService{
 			//新增用户
 			nextUserId = idUtil.nextUserId();
 			map.clear();
-			map.put("wxid", openid);
+			map.put("openid", openid);
 			map.put("userid", String.valueOf(nextUserId));
 			userinfoDao.insertUserinfo(map);
 			//新增userlogin 记录
 			nextSession = idUtil.nextSessionId();
-			map.remove("wxid");
+			map.remove("openid");
 			map.put("trdsession", nextSession);
 			map.put("sessionkey", session_key);
 			userloginDao.insertUserlogin(map);
@@ -104,8 +104,8 @@ public class UserinfoServiceImpl implements UserinfoService{
 			userloginDao.updateUserlogin(map);
 		}
 		map.clear();
-		map.put("nextSession", nextSession);
-		map.put("session_key", session_key);
+		map.put("trdsession", nextSession);
+		map.put("sessionkey", session_key);
 		map.put("openid", openid);
 		return map;
 	}

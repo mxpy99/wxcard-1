@@ -61,7 +61,7 @@ public class ClassifyServiceImpl implements ClassifyService{
 		map.put("old_classifyid", old_classifyid);
 		
 		cardcaseDaoImpl.updateCardClassify(map);
-		
+		System.out.println(map.get("classifyid"));
 		cardClassifyDaoImpl.deleteClassify(map);
 		map.clear();
 		map.put("messcode", 5);

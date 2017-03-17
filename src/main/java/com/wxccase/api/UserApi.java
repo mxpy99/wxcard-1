@@ -43,7 +43,7 @@ public class UserApi {
 			return map;
 		}
 		
-		code = (String) map.get("code");
+		code = String.valueOf( map.get("code") );
 		if(code == null && "".equals(code)){
 			map.put("messcode", "2");
 			return map;
@@ -57,15 +57,13 @@ public class UserApi {
 			map.put("messcode", "3");
 			return map;
 		}
+		
 		HttpSession session = req.getSession();
-		session.setAttribute((String) map.get("nextSession"), (String) map.get("session_key")+(String) map.get("openid"));
-		System.out.println((String) map.get("nextSession"));
-		System.out.println((String) map.get("session_key")+(String) map.get("openid"));
-		map.clear();
+		session.setAttribute((String) map.get("trdsession"), (String) map.get("sessionkey")+(String) map.get("openid"));
+		System.out.println((String) map.get("trdsession"));
+		System.out.println((String) map.get("sessionkey")+(String) map.get("openid"));
+
 		map.put("messcode", "5");
-		map.put("nextSession", (String) map.get("nextSession"));
-		map.put("session_key", (String) map.get("session_key"));
-		map.put("openid", (String) map.get("openid"));
 		return map;
 	}
 }
