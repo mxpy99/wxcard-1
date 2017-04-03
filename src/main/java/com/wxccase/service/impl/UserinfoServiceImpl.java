@@ -50,9 +50,9 @@ public class UserinfoServiceImpl implements UserinfoService{
 		
 		try {
 			//请求如下链接 获取 session_key 和 openid  https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
-			System.out.println(propertiesUtil.getWxappid()+"==="+propertiesUtil.getSecret());
-			//json = netReqUtil.loadJson("https://api.weixin.qq.com/sns/jscode2session?appid="+propertiesUtil.getWxappid()+"&secret="+propertiesUtil.getSecret()+"&js_code="+code+"&grant_type=authorization_code");
-			json = "{\"openid\":111,\"session_key\":1}";
+			System.out.println(propertiesUtil.getAppid()+"==="+propertiesUtil.getAppsecret());
+			json = netReqUtil.loadJson("https://api.weixin.qq.com/sns/jscode2session?appid="+propertiesUtil.getAppid()+"&secret="+propertiesUtil.getAppsecret()+"&js_code="+code+"&grant_type=authorization_code");
+			//json = "{\"openid\":111,\"session_key\":1}";
 			System.out.println(json);
 		} catch (Exception e1) {
 			e1.printStackTrace();
@@ -110,5 +110,15 @@ public class UserinfoServiceImpl implements UserinfoService{
 		return map;
 	}
 	
+	@Override
+	public void updateLogo(Map map) throws Exception{
+		userinfoDao.updateLogo(map);
+	}
 	
+	@Override
+	public void insertFaq(Map map) throws Exception {
+		long nextFaqId = idUtil.nextFaqId();
+		map.put("faqid", String.valueOf(nextFaqId));
+		userinfoDao.insertFaq(map);
+	}
 }

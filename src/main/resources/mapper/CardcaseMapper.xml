@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxccase.dao.CardcaseDao" >
 	<insert id="insertCard" parameterType="com.wxccase.entity.Cardcase">
-			insert into cardinfo(cardid,userid,classifyid,icon,username,profession,isconcern,carddescribe,company,address,qqnumber,wechatnumber,phonenumber,telephonenumber,faxnumber,website,mail,companylogo) 
-			values(#{cardid}, #{userid}, #{classifyid}, #{icon}, #{username}, #{profession}, #{isconcern}, #{carddescribe}, #{company}, #{address}, #{qqnumber}, #{wechatnumber}, #{phonenumber}, #{telephonenumber}, #{faxnumber}, #{website}, #{mail}, #{companylogo}) 
+			INSERT INTO CARDINFO(CARDID,USERID,CLASSIFYID,ICON,USERNAME,PROFESSION,ISCONCERN,CARDDESCRIBE,COMPANY,ADDRESS,QQNUMBER,WECHATNUMBER,PHONENUMBER,TELEPHONENUMBER,FAXNUMBER,WEBSITE,MAIL,COMPANYLOGO) 
+			VALUES(#{cardid}, #{userid}, #{classifyid}, #{icon}, #{username}, #{profession}, #{isconcern}, #{carddescribe}, #{company}, #{address}, #{qqnumber}, #{wechatnumber}, #{phonenumber}, #{telephonenumber}, #{faxnumber}, #{website}, #{mail}, #{companylogo}) 
 	</insert>
 	
 	<update id="updateCard" parameterType="com.wxccase.entity.Cardcase">
-			update cardinfo 
-			set 
-			   classifyid = #{classifyid},icon = #{icon},username = #{username},profession = #{profession},isconcern = #{isconcern},carddescribe = #{carddescribe},company = #{company},address = #{address},qqnumber = #{qqnumber},wechatnumber = #{wechatnumber},phonenumber = #{phonenumber},telephonenumber = #{telephonenumber}, faxnumber = #{faxnumber} ,website = #{website},mail = #{mail},companylogo = #{companylogo}
+			UPDATE CARDINFO 
+			SET 
+			   CLASSIFYID = #{classifyid},ICON = #{icon},USERNAME = #{username},PROFESSION = #{profession},ISCONCERN = #{isconcern},CARDDESCRIBE = #{carddescribe},COMPANY = #{company},ADDRESS = #{address},QQNUMBER = #{qqnumber},WECHATNUMBER = #{wechatnumber},PHONENUMBER = #{phonenumber},TELEPHONENUMBER = #{telephonenumber}, FAXNUMBER = #{faxnumber} ,WEBSITE = #{website},MAIL = #{mail},COMPANYLOGO = #{companylogo}
 			where
-			   cardid = #{cardid}
+			   CARDID = #{cardid}
 	</update>
 	
 	<update id="updateCardClassify" parameterType="java.util.Map">

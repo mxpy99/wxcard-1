@@ -35,7 +35,6 @@ public class ClassifyServiceImpl implements ClassifyService{
 	public Map updateClassify(Map map) throws Exception {
 		cardClassifyDaoImpl.updateClassify(map);
 		map.clear();
-		map.put("messcode", 5);
 		return map;
 	}
 
@@ -46,8 +45,6 @@ public class ClassifyServiceImpl implements ClassifyService{
 		cardClassifyDaoImpl.insertClassify(map);
 		map.clear();
 		map.put("classifyid", nextClassifyId);
-		map.put("messcode", 5);
-		map.put("success", 1);
 		return map;
 	}
 
@@ -64,7 +61,6 @@ public class ClassifyServiceImpl implements ClassifyService{
 		System.out.println(map.get("classifyid"));
 		cardClassifyDaoImpl.deleteClassify(map);
 		map.clear();
-		map.put("messcode", 5);
 		return map;
 	}
 

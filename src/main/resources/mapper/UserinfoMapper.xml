@@ -2,15 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxccase.dao.UserinfoDao" >
 	<insert id="insertUserinfo" parameterType="java.util.Map">
-		insert into userinfo values(#{userid},#{openid},#{accountname},#{gender},#{avatarurl})
+		INSERT INTO USERINFO VALUES(#{userid},#{openid},#{accountname},#{gender},#{avatarurl})
+	</insert>
+	
+	<insert id="insertFaq" parameterType="java.util.Map">
+		INSERT INTO FAQ(FAQID,USERID,EMAIL,DESCRIPTION) VALUES(#{faqid},#{userid},#{email},#{description})
 	</insert>
 	
 	<update id="updateUserinfo" parameterType="java.util.Map">
 		
 	</update>
 	
+	<update id="updateLogo" parameterType="java.util.Map">
+		UPDATE USERINFO SET AVATARURL = #{logoname} WHERE OPENID = #{openid}
+	</update>
+	
 	<select id="selectUserinfo" parameterType="java.util.Map" resultType="com.wxccase.entity.Userinfo">
-		select * from userinfo where openid = #{openid}
+		SELECT * FROM USERINFO WHERE OPENID = #{openid}
 	</select>
 	
 </mapper>

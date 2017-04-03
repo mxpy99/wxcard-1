@@ -21,6 +21,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
+    <form name="serForm" action="/wxcard/extra/uploadlogo/111" method="post"  enctype="multipart/form-data">
+		<input type="file" name="file">
+		<input type="submit" value="upload"/>
+	</form>
   </body>
 </html>

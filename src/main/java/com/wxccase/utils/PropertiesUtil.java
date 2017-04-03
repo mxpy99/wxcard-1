@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PropertiesUtil {
-	private static String wxappid ;
-	private static String secret ;
+	private static String appid ;
+	private static String appsecret ;
 	
 	static{
 		try {
@@ -23,15 +23,15 @@ public class PropertiesUtil {
 	private static void init() throws IOException{
 		Properties properties = new Properties();
 		properties.load(PropertiesUtil.class.getClassLoader().getResourceAsStream("wx.properties"));
-		wxappid = (String) properties.get("wxappid");
-		secret = (String) properties.get("secret");
+		appid = (String) properties.get("appid");
+		appsecret = (String) properties.get("appsecret");
 	}
-	public static String getWxappid() {
-		return wxappid;
+	public static String getAppid() {
+		return appid;
 	}
 
-	public static String getSecret() {
-		return secret;
+	public static String getAppsecret() {
+		return appsecret;
 	}
 
 }

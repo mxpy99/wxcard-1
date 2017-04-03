@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxccase.dao.UserloginDao" >
 	<insert id="insertUserlogin" parameterType="java.util.Map">
-		insert into userlogin(userid ,trdsession ,sessionkey) values(#{userid},#{trdsession},#{sessionkey});
+		INSERT INTO USERLOGIN(USERID ,TRDSESSION ,SESSIONKEY) VALUES(#{userid},#{trdsession},#{sessionkey});
 	</insert>
 	
 	<update id="updateUserlogin" parameterType="java.util.Map">
-		update userlogin set trdsession = #{trdsession}, sessionkey = #{sessionkey} where userid = #{userid}
+		UPDATE USERLOGIN SET TRDSESSION = #{trdsession}, SESSIONKEY = #{sessionkey} WHERE USERID = #{userid}
 	</update>
 	
 	<select id="selectUserlogin" parameterType="java.util.Map" resultType="com.wxccase.entity.Userlogin">

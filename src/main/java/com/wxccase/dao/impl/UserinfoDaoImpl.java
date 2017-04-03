@@ -38,5 +38,18 @@ public class UserinfoDaoImpl implements UserinfoDao{
 		os.close();
 		return userinfo;
 	}
+
+	@Override
+	public void updateLogo(Map map) {
+		SqlSession os = sqlSessionFactory.openSession();
+		os.update("updateLogo", map);
+		os.close();
+	}
 	
+	@Override
+	public void insertFaq(Map map) {
+		SqlSession os = sqlSessionFactory.openSession();
+		os.update("insertFaq", map);
+		os.close();
+	}
 }

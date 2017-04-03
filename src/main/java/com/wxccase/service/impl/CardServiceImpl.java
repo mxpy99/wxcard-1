@@ -50,8 +50,6 @@ public class CardServiceImpl implements CardService{
 		
 		//放入消息
 		map.clear();
-		map.put("messcode", 5);
-		
 		return map;
 	}
 
@@ -81,7 +79,6 @@ public class CardServiceImpl implements CardService{
 		cardcaseDaoImpl.insertCard(cardcase);
 		
 		map.clear();
-		map.put("messcode", 5);
 		map.put("cardid", cardcase.getCardid());
 		return map;
 	}
@@ -90,7 +87,6 @@ public class CardServiceImpl implements CardService{
 	public Map deleteCard(Map map) throws Exception {
 		cardcaseDaoImpl.deleteCard(map);
 		map.clear();
-		map.put("messcode", 5);
 		return map;
 	}
 

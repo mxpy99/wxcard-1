@@ -1,19 +1,22 @@
 package com.wxccase.api;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wxccase.dao.UserinfoDao;
 import com.wxccase.entity.Cardcase;
 import com.wxccase.entity.Userinfo;
+import com.wxccase.exception.GlobalErrorInfoException;
+import com.wxccase.exception.code.KeyvalueErrorInfoEnum;
+import com.wxccase.exception.code.NodescribeErrorInfoEnum;
 import com.wxccase.service.CardService;
 import com.wxccase.utils.JsonToMap;
 
@@ -32,38 +35,18 @@ public class CardApi {
 	
     //名片列表查看
 	@RequestMapping("/list")
-	public @ResponseBody Map lookCardAbs(@RequestBody String info){
-		Map map = null;
-		
-		String openid = null;
-		String pagenum = null;
-		String pagesize = null;
+	public @ResponseBody Map lookCardAbs(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
 		List<Cardcase> list = null;
 		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
+		Map map = (Map) req.getAttribute("info");
+		Userinfo user = (Userinfo) req.getAttribute("user");
 		
-		openid = String.valueOf(map.get("openid"));
-		pagenum = String.valueOf(map.get("pagenum"));
-		pagesize = String.valueOf(map.get("pagesize"));
+		String openid = String.valueOf(map.get("openid"));
+		String pagenum = String.valueOf(map.get("pagenum"));
+		String pagesize = String.valueOf(map.get("pagesize"));
 		
 		if(pagesize == null || "".equals(pagesize) || "null".equals(pagesize) || pagenum == null || "".equals(pagenum) || "null".equals(pagenum) || openid == null || "".equals(openid) || "null".equals(openid) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
-		}
-		
-		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user == null){
-			map.clear();
-			map.put("messcode", 4);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		map.put("userid", user.getUserid());
@@ -80,58 +63,38 @@ public class CardApi {
 			map.put("size", Integer.valueOf(pagesize));
 			list = cardServiceImpl.selectCard(map);
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
+		
 		map.clear();
-		map.put("messcode", 5);
+		map.put("code", "0");
+		map.put("message", "operation success");
 		map.put("cardlist", list);
 		return map;
 	}
 	
 	//名片详情查看
 	@RequestMapping("/detail")
-	public @ResponseBody Map lookCardDetail(@RequestBody String info){
-		Map map = null;
-		String openid = null;
-		String cardid = null;
+	public @ResponseBody Map lookCardDetail(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
 		Cardcase cardDetail = null;
 		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
+		Map map = (Map) req.getAttribute("info");
+		Userinfo user = (Userinfo) req.getAttribute("user");
 		
-		openid = String.valueOf(map.get("openid"));
-		cardid = String.valueOf(map.get("cardid"));
+		String openid = String.valueOf(map.get("openid"));
+		String cardid = String.valueOf(map.get("cardid"));
+		
 		if(cardid == null || "".equals(cardid) || "null".equals(cardid) || openid == null || "".equals(openid)|| "null".equals(openid) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
-		}
-		
-		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user == null){
-			map.clear();
-			map.put("messcode", 4);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		try {
 			 cardDetail = cardServiceImpl.selectCardDetail(map);
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
-		map.put("messcode", 5);
+		map.put("code", "0");
+		map.put("message", "operation success");
 		map.put("cardDetail", cardDetail);
 		return map;
 	}
@@ -140,49 +103,29 @@ public class CardApi {
 	 * 名片的修改
 	 * @param info
 	 * @return
+	 * @throws GlobalErrorInfoException 
 	 */
 	@RequestMapping("/update")
-	public @ResponseBody Map updatecard(@RequestBody String info){
-		Map map = null;
-		String openid = null;
-		String classifyid = null;
-		String cardid = null;
+	public @ResponseBody Map updatecard(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
+		Map map = (Map) req.getAttribute("info");
 		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
+		Userinfo user = (Userinfo) req.getAttribute("user");
 		
-		openid = String.valueOf( map.get("openid"));
-		classifyid = String.valueOf(map.get("classifyid"));
-		cardid = String.valueOf(map.get("cardid"));
+		String openid = String.valueOf( map.get("openid"));
+		String classifyid = String.valueOf(map.get("classifyid"));
+		String cardid = String.valueOf(map.get("cardid"));
 		
 		if(cardid == null || "".equals(cardid) || "null".equals(cardid) || openid == null || "".equals(openid) || "null".equals(openid) || classifyid == null || "".equals(classifyid) || "null".equals(classifyid) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
-		}
-		
-		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user == null){
-			map.clear();
-			map.put("messcode", 4);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		try {
 			map = cardServiceImpl.updateCard(map);
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
-		
+		map.put("code", "0");
+		map.put("message", "operation success");
 		return map;
 	}
 	
@@ -190,47 +133,27 @@ public class CardApi {
 	 * 名片的删除
 	 * @param info
 	 * @return
+	 * @throws GlobalErrorInfoException 
 	 */
 	@RequestMapping("/delete")
-	public @ResponseBody Map deleteCard(@RequestBody String info){
-		Map map = null;
-		String openid = null;
-		String cardid = null;
+	public @ResponseBody Map deleteCard(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
 		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
-		
-		openid = String.valueOf(map.get("openid"));
-		cardid = String.valueOf( map.get("cardid"));
+		Map map = (Map) req.getAttribute("info");
+		Userinfo user = (Userinfo) req.getAttribute("user");
+		String openid = String.valueOf(map.get("openid"));
+		String cardid = String.valueOf( map.get("cardid"));
 		
 		if(openid == null || "".equals(openid) || "null".equals(openid) || cardid == null || "".equals(cardid) || "null".equals(cardid) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
-		}
-		
-		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user == null){
-			map.clear();
-			map.put("messcode", 4);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		try {
 			map = cardServiceImpl.deleteCard(map);
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
-		
+		map.put("code", "0");
+		map.put("message", "operation success");
 		return map;
 	}
 	
@@ -238,49 +161,29 @@ public class CardApi {
 	 * 名片的新增
 	 * @param info
 	 * @return
+	 * @throws GlobalErrorInfoException 
 	 */
 	@RequestMapping("/insert")
-	public @ResponseBody Map insertCard(@RequestBody String info){
-		Map map = null;
+	public @ResponseBody Map insertCard(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
+		Map map = (Map) req.getAttribute("info");
+		Userinfo user = (Userinfo) req.getAttribute("user");
 		
-		String openid = null;
-		String classifyid = null;
-		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
-		
-		openid = String.valueOf(map.get("openid"));
-		classifyid = String.valueOf( map.get("classifyid"));
+		String openid = String.valueOf(map.get("openid"));
+		String classifyid = String.valueOf( map.get("classifyid"));
 		
 		if(openid == null || "".equals(openid) || "null".equals(openid) || classifyid == null || "".equals(classifyid)  || "null".equals(classifyid) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
-		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user == null){
-			map.clear();
-			map.put("messcode", 4);
-			return map;
-		}
 		map.put("userid", user.getUserid());
 		
 		try {
 			map = cardServiceImpl.insertCard(map);
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
-		
+		map.put("code", "0");
+		map.put("message", "operation success");
 		return map;
 	}
 	

@@ -2,26 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxccase.dao.CardClassifyDao" >
 	<insert id="insertClassify" parameterType="java.util.Map">
-			insert into cardclassify(classifyid,userid,content) values (#{classifyid},#{userid},#{content})
+			INSERT INTO CARDCLASSIFY(CLASSIFYID,USERID,CONTENT) VALUES (#{classifyid},#{userid},#{content})
 	</insert>
 	
 	<update id="updateClassify" parameterType="java.util.Map">
-			update cardclassify set content = #{content} where classifyid = #{classifyid}
+			UPDATE CARDCLASSIFY SET CONTENT = #{content} WHERE CLASSIFYID = #{classifyid}
 	</update>
 	
 	<select id="selectClassify" parameterType="java.util.Map" resultType="com.wxccase.entity.CardClassify">
-			select * from cardclassify where userid = #{userid}
+			SELECT * FROM CARDCLASSIFY WHERE USERID = #{userid}
 	</select>
 	
 	<select id="selectClassifyDetail" parameterType="string" resultType="com.wxccase.entity.CardClassify">
-			select * from cardclassify where 
+			SELECT * FROM CARDCLASSIFY WHERE 
 			<!-- 删除前查看 -->
-			      <if test=" classifyid != null " > userid = #{userid} AND classifyid=#{classifyid} </if>
+			      <if test=" classifyid != null " > USERID = #{userid} AND CLASSIFYID=#{classifyid} </if>
 			<!-- 添加前查重 -->
-			      <if test=" userid != null  and content != null" > userid = #{userid} AND content=#{content} </if>
+			      <if test=" userid != null  and content != null" > USERID = #{userid} AND CONTENT=#{content} </if>
 	</select>
 	
 	<delete id="deleteClassify" parameterType="java.util.Map">
-		delete from cardclassify where classifyid = #{classifyid}
+		DELETE FROM CARDCLASSIFY WHERE CLASSIFYID = #{classifyid}
 	</delete>
 </mapper>

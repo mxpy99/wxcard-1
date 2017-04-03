@@ -23,6 +23,7 @@ public class IdUtil {
 	  private long lastTimestamp = -1L;
 	 
 	  public IdUtil(){}
+	  
 	  public IdUtil(long workerId, long datacenterId) {
 	    if (workerId > maxWorkerId || workerId < 0) {
 	      throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", maxWorkerId));
@@ -62,45 +63,79 @@ public class IdUtil {
 		 
 		    lastTimestamp = timestamp;
 		    return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
-		  }
+	  }
+	  public synchronized long nextFollowId() {
+		    long timestamp = timeGen();
+		    if (timestamp < lastTimestamp) {
+		      throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+		    }
+		    if (lastTimestamp == timestamp) {
+		      sequence = (sequence + 1) & sequenceMask;
+		      if (sequence == 0) {
+		        timestamp = tilNextMillis(lastTimestamp);
+		      }
+		    } else {
+		      sequence = 0L;
+		    }
 		 
-		  public synchronized long nextClassifyId() {
-			    long timestamp = timeGen();
-			    if (timestamp < lastTimestamp) {
-			      throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
-			    }
-			    if (lastTimestamp == timestamp) {
-			      sequence = (sequence + 1) & sequenceMask;
-			      if (sequence == 0) {
-			        timestamp = tilNextMillis(lastTimestamp);
-			      }
-			    } else {
-			      sequence = 0L;
-			    }
-			 
-			    lastTimestamp = timestamp;
-			    return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
-			  }
+		    lastTimestamp = timestamp;
+		    return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
+	  }
+	  public synchronized long nextClassifyId() {
+		    long timestamp = timeGen();
+		    if (timestamp < lastTimestamp) {
+		      throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+		    }
+		    if (lastTimestamp == timestamp) {
+		      sequence = (sequence + 1) & sequenceMask;
+		      if (sequence == 0) {
+		        timestamp = tilNextMillis(lastTimestamp);
+		      }
+		    } else {
+		      sequence = 0L;
+		    }
+		 
+		    lastTimestamp = timestamp;
+		    return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
+	  }
 		  
-		  public synchronized long nextCardinfoId() {
-			    long timestamp = timeGen();
-			    if (timestamp < lastTimestamp) {
-			      throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
-			    }
-			    if (lastTimestamp == timestamp) {
-			      sequence = (sequence + 1) & sequenceMask;
-			      if (sequence == 0) {
-			        timestamp = tilNextMillis(lastTimestamp);
-			      }
-			    } else {
-			      sequence = 0L;
-			    }
-			 
-			    lastTimestamp = timestamp;
-			    return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
-			  }
+	  public synchronized long nextCardinfoId() {
+		    long timestamp = timeGen();
+		    if (timestamp < lastTimestamp) {
+		      throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+		    }
+		    if (lastTimestamp == timestamp) {
+		      sequence = (sequence + 1) & sequenceMask;
+		      if (sequence == 0) {
+		        timestamp = tilNextMillis(lastTimestamp);
+		      }
+		    } else {
+		      sequence = 0L;
+		    }
+		 
+		    lastTimestamp = timestamp;
+		    return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
+	  }
 		  
-		  public synchronized String nextSessionId(){
-				return UUID.randomUUID().toString().replace("-", "");
-			}
+	  public synchronized long nextFaqId() {
+		    long timestamp = timeGen();
+		    if (timestamp < lastTimestamp) {
+		      throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds", lastTimestamp - timestamp));
+		    }
+		    if (lastTimestamp == timestamp) {
+		      sequence = (sequence + 1) & sequenceMask;
+		      if (sequence == 0) {
+		        timestamp = tilNextMillis(lastTimestamp);
+		      }
+		    } else {
+		      sequence = 0L;
+		    }
+		 
+		    lastTimestamp = timestamp;
+		    return ((timestamp - twepoch) << timestampLeftShift) | (datacenterId << datacenterIdShift) | (workerId << workerIdShift) | sequence;
+	 }
+		  
+	 public synchronized String nextSessionId(){
+			return UUID.randomUUID().toString().replace("-", "");
+		}
 }

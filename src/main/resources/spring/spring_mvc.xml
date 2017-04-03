@@ -35,6 +35,25 @@
 	   	<property name="maxUploadSize" value="62914560"></property>
     </bean>  
     
+    <mvc:interceptors>
+    	
+    	<mvc:interceptor>
+    		<mvc:mapping path=""/>
+    		<bean class="com.wxccase.interceptor.ExceptionInterceptor"/>
+    	</mvc:interceptor>
+    	
+    	<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<mvc:exclude-mapping path="/extra/**"/>
+    		<bean class="com.wxccase.interceptor.unit.FormatInterceptor"/>
+    	</mvc:interceptor> 
+    	
+    	<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<mvc:exclude-mapping path="/extra/**"/>
+    		<bean class="com.wxccase.interceptor.unit.TokenidIntercepter"></bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">  
         <property name="exceptionMappings">  
             <props>  

@@ -1,19 +1,22 @@
 package com.wxccase.api;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.wxccase.dao.UserinfoDao;
 import com.wxccase.entity.CardClassify;
 import com.wxccase.entity.Userinfo;
+import com.wxccase.exception.GlobalErrorInfoException;
+import com.wxccase.exception.code.KeyvalueErrorInfoEnum;
+import com.wxccase.exception.code.NodescribeErrorInfoEnum;
 import com.wxccase.service.ClassifyService;
 import com.wxccase.utils.JsonToMap;
 
@@ -34,35 +37,18 @@ public class ClassifyApi {
 	 * 分类列表查看
 	 * @param info
 	 * @return
+	 * @throws GlobalErrorInfoException 
 	 */
 	@RequestMapping("/list")
-	public @ResponseBody Map lookClassifyAbs(@RequestBody String info){
-		Map map = null;
-		String openid = null;
+	public @ResponseBody Map lookClassifyAbs(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
+		Map map = (Map) req.getAttribute("info");
+		Userinfo user = (Userinfo) req.getAttribute("user");
+		String openid = String.valueOf(map.get("openid"));
+		
 		List<CardClassify> classifylist = null;
 		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
-		
-		openid = String.valueOf(map.get("openid"));
-		
 		if(openid == null || "".equals(openid) || "null".equals(openid) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
-		}
-		
-		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user == null){
-			map.clear();
-			map.put("messcode", 4);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		try {
@@ -72,13 +58,11 @@ public class ClassifyApi {
 				System.out.println(c.toString());
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
 		map.put("classify", classifylist);
-		map.put("messcode", 5);
+		map.put("code", "0");
+		map.put("message", "operation success");
 		return map;
 	}
 	
@@ -86,48 +70,28 @@ public class ClassifyApi {
 	 * 分类的修改
 	 * @param info
 	 * @return
+	 * @throws GlobalErrorInfoException 
 	 */
 	@RequestMapping("/update")
-	public @ResponseBody Map updateClassify(@RequestBody String info){
-		Map map = null;
-		String openid = null;
-		String classifyid = null;
-		String content = null;
+	public @ResponseBody Map updateClassify(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
+		Map map = (Map) req.getAttribute("info");
+		Userinfo user = (Userinfo) req.getAttribute("user");
 		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
+		String openid = String.valueOf( map.get("openid") );
+		String content = String.valueOf(map.get("content") );
+		String classifyid = String.valueOf(map.get("classifyid"));
 		
-		openid = String.valueOf( map.get("openid") );
-		content = String.valueOf(map.get("content") );
-		classifyid = String.valueOf(map.get("classifyid"));
 		if(openid == null || "null".equals(openid) || "".equals(openid) || classifyid == null || "null".equals(classifyid) || "".equals(classifyid) || content == null || "null".equals(content) || "null".equals(content) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
-		}
-		
-		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
-		if(user == null){
-			map.clear();
-			map.put("messcode", 4);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		try{
 			map = classifyServiceImpl.updateClassify(map);
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
-		
+		map.put("code", "0");
+		map.put("message", "operation success");
 		return map;
 	}
 	
@@ -135,78 +99,49 @@ public class ClassifyApi {
 	 * 分类的删除
 	 * @param info
 	 * @return
+	 * @throws GlobalErrorInfoException 
 	 */
 	@RequestMapping("/delete")
-	public @ResponseBody Map deleteClassify(@RequestBody String info){
-		Map map = null;
-		String openid = null;
-		String classifyid = null;
-		Userinfo user = null;
+	public @ResponseBody Map deleteClassify(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
+		Map map = (Map) req.getAttribute("info");
+		Userinfo user = (Userinfo) req.getAttribute("user");
 		int size = 0;
-		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
-		
-		openid = String.valueOf(map.get("openid"));
-		classifyid = String.valueOf(map.get("content"));
-		
+		String openid = String.valueOf(map.get("openid"));
+		String classifyid = String.valueOf(map.get("content"));
 		if(openid == null || "".equals(openid) || "null".equals(openid) || classifyid == null || "".equals(classifyid) || "null".equals(classifyid) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		try {
-			user = userinfoDaoImpl.selectUserinfo(map);
-			
-			if(user ==  null){
-				System.out.println("4");
-				map.clear();
-				map.put("messcode", 4);
-				return map;
-			}
-			
 			map.put("userid", user.getUserid());
 			System.out.println(user.getUserid()+"================");
 			System.out.println(map.get("classifyid")+"=============");
-			
-			
 			if(user.getUserid().equals(((String) map.get("classifyid")))){
 				System.out.println("-1");
 				map.clear();
-				map.put("messcode", 5);
-				map.put("success", -1);
+				map.put("code", "0");
+				map.put("message", "operation success");
 				return map;
 			}
 		    size = classifyServiceImpl.selectClassifyDetail(map);
 		} catch (Exception e1) {
-			e1.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
 		
 		if(size == 0){
 			map.clear();
-			map.put("messcode", 6);
+			map.put("code", 6);
+			map.put("message", "classifid not find");
 			return map;
 		}
 		
 		try {
 			map = classifyServiceImpl.deleteClassify(map);
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
-		map.put("success", 1);
+		map.put("code", 1);
+		map.put("message", "operation success");
 		return map;
 	}
 	
@@ -214,53 +149,32 @@ public class ClassifyApi {
 	 * 分类的新增
 	 * @param info
 	 * @return
+	 * @throws GlobalErrorInfoException 
 	 */
 	@RequestMapping("/insert")
-	public @ResponseBody Map insertClassify(@RequestBody String info){
-		Map map = null;
-		String openid = null;
-		String content = null;
-		Userinfo user = null;
+	public @ResponseBody Map insertClassify(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
+		Map map = (Map) req.getAttribute("info");
+		Userinfo user = (Userinfo) req.getAttribute("user");
+		
 		int size = 0;
 		
-		try {
-			map = jsonToMap.jsonToMapUtil(info);
-		} catch (Exception e) {
-			e.printStackTrace();
-			map = new HashMap();
-			map.put("messcode", 1);
-			return map;
-		}
-		
-		openid = String.valueOf(map.get("openid"));
-		content = (String) map.get("content");
+		String openid = String.valueOf(map.get("openid"));
+		String content = (String) map.get("content");
 		
 		if(openid == null || "".equals(openid) || "null".equals(openid) || content == null || "".equals(content) || "null".equals(content) ){
-			map.clear();
-			map.put("messcode", 2);
-			return map;
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		try {
-			user = userinfoDaoImpl.selectUserinfo(map);
-			if(user ==  null){
-				System.out.println("4");
-				map.clear();
-				map.put("messcode", 4);
-				return map;
-			}
 			map.put("userid", user.getUserid());
 		    size = classifyServiceImpl.selectClassifyDetail(map);
 		} catch (Exception e1) {
-			e1.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
 		
 		if(size != 0){
-			map.put("messcode", 5);
-			map.put("success", -1);
+			map.put("code", "6");
+			map.put("message", "添加失败,已经存在，或者不符合规范");
 			return map;
 		}
 		
@@ -269,11 +183,10 @@ public class ClassifyApi {
 			System.out.println(map.get("content"));
 			map = classifyServiceImpl.insertClassify(map);
 		} catch (Exception e) {
-			e.printStackTrace();
-			map.clear();
-			map.put("messcode", 3);
-			return map;
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
+		map.put("code", 5);
+		map.put("message", 1);
 		return map;
 	}
 	
