@@ -3,7 +3,7 @@
 <mapper namespace="com.wxccase.dao.FollowDao" >
 	
 	<insert id="insertFollow" parameterType="java.util.Map">
-			INSERT INTO FOLLOW(FOLLOWID,USERID,CARDID) VALUES (#{followid},#{userid},#{cardid})
+		INSERT INTO FOLLOW(FOLLOWID,USERID,CARDID) VALUES (#{followid},#{userid},#{cardid})
 	</insert>
 	
 	<delete id="deleteFollow" parameterType="java.util.Map">
@@ -11,12 +11,12 @@
 	</delete>
 	
 	<select id="listFollow" parameterType="java.util.Map" resultType="java.util.Map">
-	    SELECT * FROM FOLLOW WHERE USERID = #{userid} LIMIT #{start},#{size}
+	    SELRCT * FROM CARDINFO WHERE CARDID IN SELECT CARDID FROM FOLLOW WHERE USERID = #{userid} LIMIT #{start},#{size}
 	</select>
 	
 	<select id="listUser" parameterType="java.util.Map" resultType="java.util.Map">
-	    SELECT * FROM FOLLOW 
- 		<if test="classifyid != null"> WHERE username = %#{keywords}% LIMIT #{start},#{size} UNION ALL SELECT ID FROM FOLLOW where company = %#{keywords}%</if>
+	    SELECT * FROM CARDINFO 
+ 		<if test=" keywords != null"> WHERE username LIKE %#{keywords}% LIMIT #{start},#{size} UNION ALL SELECT ID FROM FOLLOW where company LIKE %#{keywords}%</if>
 		LIMIT #{start},#{size}
 	</select>
 </mapper>

@@ -72,24 +72,40 @@ public class UserApi {
 		return info;
 	}
 	
+	/**
+	 * 上传logo
+	 * @param openid
+	 * @param file
+	 * @param resp
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 * @author viakiba
+	 * @time 2017-04-04
+	 * 892645423@qq.com
+	 */
 	@RequestMapping("/extra/uploadlogo/{openid}")
 	private @ResponseBody Map upLoadLogo(@PathVariable String openid,@RequestParam MultipartFile file,HttpServletResponse resp,HttpServletRequest req) throws Exception{
 		System.out.println(openid);
 		Map map = new HashMap<>();
-		map.put("openid", openid);
+		map.put("openid", openid.trim());
 		Userinfo user = userinfoDaoImpl.selectUserinfo(map);
+		
 		if(user == null){
 			throw new GlobalErrorInfoException(OpenidErrorInfoEnum.OPENID_ERROR);
 		}
+		
 		String name = file.getOriginalFilename();
-		String str = name.substring(name.lastIndexOf("."));
-		System.out.println(str);
-		String path = "d:/wxcard/images/"+openid+str;  
+		String companylogo = name.substring(name.lastIndexOf("."));
+		System.out.println(companylogo);
+		String path = "d:/wxcard/images/"+openid+companylogo;  
 		File files = new File(path);
 		file.transferTo(files);
 		
 		try{
-			map.put("logoname", str);
+			map.clear();
+			map.put("userid", user.getUserid());
+			map.put("companylogo", companylogo);
 			userinfoService.updateLogo(map);
 		}catch(Exception e){
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
@@ -150,6 +166,16 @@ public class UserApi {
 		
 	}
 	
+	/**
+	 * 我的关注的名片
+	 * @param resp
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 * @author viakiba
+	 * @time 2017-04-04
+	 * 892645423@qq.com
+	 */
 	@RequestMapping("/listFollow")
 	private @ResponseBody Map listFollow(HttpServletResponse resp,HttpServletRequest req) throws Exception{
 		
@@ -183,6 +209,16 @@ public class UserApi {
 		return map;
 	}
 	
+	/**
+	 * 
+	 * @param resp
+	 * @param req
+	 * @return
+	 * @throws Exception
+	 * @author viakiba
+	 * @time 2017-04-04
+	 * 892645423@qq.com
+	 */
 	@RequestMapping("/listUser")
 	private @ResponseBody Map listUser(HttpServletResponse resp,HttpServletRequest req) throws Exception{
 		

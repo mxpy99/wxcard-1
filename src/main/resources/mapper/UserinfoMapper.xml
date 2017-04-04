@@ -13,8 +13,9 @@
 		
 	</update>
 	
+	<!-- 更改用户的名片信息companylogo -->
 	<update id="updateLogo" parameterType="java.util.Map">
-		UPDATE USERINFO SET AVATARURL = #{logoname} WHERE OPENID = #{openid}
+		UPDATE CARDINFO SET COMPANYLOGO = #{companylogo} WHERE USERID = #{USERID}
 	</update>
 	
 	<select id="selectUserinfo" parameterType="java.util.Map" resultType="com.wxccase.entity.Userinfo">
