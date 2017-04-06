@@ -16,7 +16,13 @@
 	
 	<select id="listUser" parameterType="java.util.Map" resultType="java.util.Map">
 	    SELECT * FROM CARDINFO 
- 		<if test=" keywords != null"> WHERE username LIKE %#{keywords}% LIMIT #{start},#{size} UNION ALL SELECT ID FROM FOLLOW where company LIKE %#{keywords}%</if>
-		LIMIT #{start},#{size}
+	    <choose>
+			<when test="keywords != null">
+				WHERE USERNAME LIKE "%${keywords}%" OR COMPANY LIKE "%${keywords}%" LIMIT #{start},#{size} 
+			</when>
+			<otherwise>
+				LIMIT #{start},#{size}
+			</otherwise>
+		</choose>
 	</select>
 </mapper>

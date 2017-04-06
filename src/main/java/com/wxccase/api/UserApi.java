@@ -176,7 +176,7 @@ public class UserApi {
 	 * @time 2017-04-04
 	 * 892645423@qq.com
 	 */
-	@RequestMapping("/listFollow")
+	@RequestMapping("/listfollow")
 	private @ResponseBody Map listFollow(HttpServletResponse resp,HttpServletRequest req) throws Exception{
 		
 		Map map = (Map) req.getAttribute("info");
@@ -219,7 +219,7 @@ public class UserApi {
 	 * @time 2017-04-04
 	 * 892645423@qq.com
 	 */
-	@RequestMapping("/listUser")
+	@RequestMapping("/listuser")
 	private @ResponseBody Map listUser(HttpServletResponse resp,HttpServletRequest req) throws Exception{
 		
 		Map map = (Map) req.getAttribute("info");
@@ -229,7 +229,9 @@ public class UserApi {
 		String pagenum = String.valueOf(map.get("pagenum"));
 		String pagesize = String.valueOf(map.get("pagesize"));
 		String keywords = String.valueOf(map.get("keywords"));
-		
+		System.out.println(pagenum);
+		System.out.println(pagesize);
+		System.out.println(keywords);
 		if(pagesize == null || "".equals(pagesize) || "null".equals(pagesize) || pagenum == null || "".equals(pagenum) || "null".equals(pagenum) ){
 			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
@@ -240,9 +242,15 @@ public class UserApi {
 			int start = Integer.valueOf(pagenum) * Integer.valueOf(pagesize);
 			map.put("start", start);
 			map.put("size", Integer.valueOf(pagesize));
-			map.put("keywords", keywords);
-			list = followServiceImpl.listUser(map);
+			if(keywords == null || "".equals(keywords) || "null".equals(keywords)){
+				System.out.println();
+				list = followServiceImpl.listUser(map);
+			}else{
+				map.put("keywords", keywords);
+				list = followServiceImpl.listUser(map);
+			}
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
 		map.clear();
