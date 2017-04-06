@@ -93,6 +93,7 @@ public class CardApi {
 		} catch (Exception e) {
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
+		map.clear();
 		map.put("code", "0");
 		map.put("message", "operation success");
 		map.put("cardDetail", cardDetail);
