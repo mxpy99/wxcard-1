@@ -13,4 +13,5 @@ public interface FollowDao {
 
 	public List<Map> listUser(Map map) throws Exception;
 	
+	public Map selectByuseridAndcardid(Map map) throws Exception;
 }

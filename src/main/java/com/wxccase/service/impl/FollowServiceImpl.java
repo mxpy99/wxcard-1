@@ -46,4 +46,10 @@ public class FollowServiceImpl implements FollowService{
 		List<Map> list = followDaoImpl.listUser(map);
 		return list;
 	}
+
+	@Override
+	public Map selectByuseridAndcardid(Map map) throws Exception {
+		map = followDaoImpl.selectByuseridAndcardid(map);
+		return map;
+	}
 }

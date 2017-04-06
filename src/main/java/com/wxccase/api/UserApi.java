@@ -131,8 +131,18 @@ public class UserApi {
 		map.put("userid", user.getUserid());
 		
 		try{
-			map = followServiceImpl.insertFollow(map);
+			//先进性查重
+			Map followmap = followServiceImpl.selectByuseridAndcardid(map);
+			if(followmap == null ){
+				map = followServiceImpl.insertFollow(map);
+			}else{
+				map.clear();
+				map.put("code", "5");
+				map.put("message", "已经关注");
+				return map;
+			}
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
 		map.put("code", "0");
@@ -147,7 +157,7 @@ public class UserApi {
 		Userinfo user = (Userinfo) req.getAttribute("user");
 		
 		String openid = (String) map.get("openid");
-		String cardid = (String) map.get("email");
+		String cardid = (String) map.get("cardid");
 		
 		if(openid == null || "".equals(openid) || "null".equals(openid) || cardid == null || "".equals(cardid) || "null".equals(cardid) ){
 			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
@@ -157,6 +167,7 @@ public class UserApi {
 		try{
 			followServiceImpl.deleteFollow(map);
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
 		map.clear();
@@ -200,6 +211,7 @@ public class UserApi {
 			map.put("size", Integer.valueOf(pagesize));
 			list = followServiceImpl.listFollow(map);
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
 		map.clear();
