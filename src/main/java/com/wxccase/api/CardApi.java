@@ -80,14 +80,11 @@ public class CardApi {
 		
 		Map map = (Map) req.getAttribute("info");
 		Userinfo user = (Userinfo) req.getAttribute("user");
-		
 		String openid = String.valueOf(map.get("openid"));
-		String cardid = String.valueOf(map.get("cardid"));
-		
-		if(cardid == null || "".equals(cardid) || "null".equals(cardid) || openid == null || "".equals(openid)|| "null".equals(openid) ){
+		if( openid == null || "".equals(openid)|| "null".equals(openid) ){
 			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
-		
+		map.put("cardid", user.getUserid());
 		try {
 			 cardDetail = cardServiceImpl.selectCardDetail(map);
 		} catch (Exception e) {

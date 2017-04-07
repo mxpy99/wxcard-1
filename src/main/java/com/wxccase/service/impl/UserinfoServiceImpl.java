@@ -8,8 +8,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.wxccase.dao.CardcaseDao;
 import com.wxccase.dao.UserinfoDao;
 import com.wxccase.dao.UserloginDao;
+import com.wxccase.entity.Cardcase;
 import com.wxccase.entity.Userinfo;
 import com.wxccase.service.UserinfoService;
 import com.wxccase.utils.IdUtil;
@@ -37,6 +39,9 @@ public class UserinfoServiceImpl implements UserinfoService{
 	
 	@Resource
 	private UserloginDao userloginDao;
+	
+	@Resource
+	private CardcaseDao cardcaseDao;
 	
 	@Override
 	public Map get3rdsession(String code) throws Exception{
@@ -88,6 +93,10 @@ public class UserinfoServiceImpl implements UserinfoService{
 			map.put("openid", openid);
 			map.put("userid", String.valueOf(nextUserId));
 			userinfoDao.insertUserinfo(map);
+			Cardcase cardcase = new Cardcase();
+			cardcase.setCardid(String.valueOf(nextUserId));
+			cardcase.setUserid(String.valueOf(nextUserId));
+			cardcaseDao.insertCard(cardcase);
 			//新增userlogin 记录
 			nextSession = idUtil.nextSessionId();
 			map.remove("openid");

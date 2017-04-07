@@ -60,6 +60,7 @@ public class ClassifyApi {
 		} catch (Exception e) {
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
+		map.clear();
 		map.put("classify", classifylist);
 		map.put("code", "0");
 		map.put("message", "operation success");
@@ -107,7 +108,7 @@ public class ClassifyApi {
 		Userinfo user = (Userinfo) req.getAttribute("user");
 		int size = 0;
 		String openid = String.valueOf(map.get("openid"));
-		String classifyid = String.valueOf(map.get("content"));
+		String classifyid = String.valueOf(map.get("classifyid"));
 		if(openid == null || "".equals(openid) || "null".equals(openid) || classifyid == null || "".equals(classifyid) || "null".equals(classifyid) ){
 			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
@@ -119,7 +120,7 @@ public class ClassifyApi {
 			if(user.getUserid().equals(((String) map.get("classifyid")))){
 				System.out.println("-1");
 				map.clear();
-				map.put("code", "0");
+				map.put("code", "5");
 				map.put("message", "operation success");
 				return map;
 			}
@@ -130,7 +131,7 @@ public class ClassifyApi {
 		
 		if(size == 0){
 			map.clear();
-			map.put("code", 6);
+			map.put("code", "6");
 			map.put("message", "classifid not find");
 			return map;
 		}
@@ -140,7 +141,7 @@ public class ClassifyApi {
 		} catch (Exception e) {
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
-		map.put("code", 1);
+		map.put("code", "0");
 		map.put("message", "operation success");
 		return map;
 	}
@@ -173,7 +174,7 @@ public class ClassifyApi {
 		}
 		
 		if(size != 0){
-			map.put("code", "6");
+			map.put("code", "5");
 			map.put("message", "添加失败,已经存在，或者不符合规范");
 			return map;
 		}
@@ -185,8 +186,8 @@ public class ClassifyApi {
 		} catch (Exception e) {
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
-		map.put("code", 5);
-		map.put("message", 1);
+		map.put("code", "0");
+		map.put("message", "operation success");
 		return map;
 	}
 	

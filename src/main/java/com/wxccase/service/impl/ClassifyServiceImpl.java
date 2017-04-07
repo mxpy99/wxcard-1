@@ -44,7 +44,7 @@ public class ClassifyServiceImpl implements ClassifyService{
 		map.put("classifyid", String.valueOf(nextClassifyId));
 		cardClassifyDaoImpl.insertClassify(map);
 		map.clear();
-		map.put("classifyid", nextClassifyId);
+		map.put("classifyid", String.valueOf(nextClassifyId));
 		return map;
 	}
 
