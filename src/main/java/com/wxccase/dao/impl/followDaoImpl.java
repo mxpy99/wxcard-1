@@ -32,9 +32,17 @@ public class followDaoImpl implements FollowDao{
 	}
 
 	@Override
-	public List<Map> listFollow(Map map) throws Exception {
+	public List<Map> listFollow(List<String> liststr) throws Exception {
 		SqlSession os = sqlSessionFactory.openSession();
-		List<Map> list = os.selectList("listFollow", map);
+		List<Map> li = os.selectList("listFollow", liststr);
+		os.close();
+		return li;
+	}
+	
+	@Override
+	public List<String> listFollowHelp(Map map) throws Exception {
+		SqlSession os = sqlSessionFactory.openSession();
+		List<String> list = os.selectList("listFollowHelp", map);
 		os.close();
 		return list;
 	}

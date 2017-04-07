@@ -10,8 +10,15 @@
 		DELETE FROM FOLLOW WHERE USERID = #{userid} AND CARDID = #{cardid}
 	</delete>
 	
+	<select id="listFollowHelp" parameterType="java.util.Map" resultType="string">
+	    SELECT CARDID FROM FOLLOW WHERE USERID = #{userid} LIMIT #{start},#{size}
+	</select>
+	
 	<select id="listFollow" parameterType="java.util.Map" resultType="java.util.Map">
-	    SELECT * FROM CARDINFO WHERE CARDID = (SELECT CARDID FROM FOLLOW WHERE USERID = #{userid} LIMIT #{start},#{size})
+	    SELECT * FROM CARDINFO WHERE CARDID IN 
+	    	<foreach  item="item"  index="index"  collection="list"  open="("  separator=","  close=")">
+					#{item}
+			</foreach>
 	</select>
 	
 	<select id="listUser" parameterType="java.util.Map" resultType="java.util.Map">

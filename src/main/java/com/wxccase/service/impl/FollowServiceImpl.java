@@ -1,5 +1,6 @@
 package com.wxccase.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,14 +38,35 @@ public class FollowServiceImpl implements FollowService{
 
 	@Override
 	public List<Map> listFollow(Map map) throws Exception {
-		List<Map> list = followDaoImpl.listFollow(map);
-		return list;
+		List<Map> listFollow = null;
+		List<String> list = followDaoImpl.listFollowHelp(map);
+		if(list.size() != 0){
+			for (String string : list) {
+				System.out.println(string);
+			}
+			listFollow = followDaoImpl.listFollow(list);
+		}
+		return listFollow;
 	}
 
 	@Override
 	public List<Map> listUser(Map map) throws Exception {
-		List<Map> list = followDaoImpl.listUser(map);
-		return list;
+		String openid = (String) map.get("openid");
+		List<Map> list1 = followDaoImpl.listUser(map);
+		List<Map> list2 = new ArrayList<Map>();
+		for (Map map1 : list1) {
+			map1.put("openid", openid);
+			Map map2 = followDaoImpl.selectByuseridAndcardid(map1);
+			if(map2 != null ){
+				map1.remove("openid");
+				map1.put("isconcern", "1");
+			}else{
+				map1.remove("openid");
+				map1.put("isconcern", "0");
+			}
+			list2.add(map1);
+		}
+		return list2;
 	}
 
 	@Override

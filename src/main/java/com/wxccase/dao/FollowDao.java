@@ -9,9 +9,11 @@ public interface FollowDao {
 
 	public void deleteFollow(Map map) throws Exception;
 
-	public List<Map> listFollow(Map map) throws Exception;
+	public List<Map> listFollow(List<String> liststr) throws Exception;
 
 	public List<Map> listUser(Map map) throws Exception;
 	
 	public Map selectByuseridAndcardid(Map map) throws Exception;
+
+	List<String> listFollowHelp(Map map) throws Exception;
 }

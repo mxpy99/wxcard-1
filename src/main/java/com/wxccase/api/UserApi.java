@@ -238,13 +238,14 @@ public class UserApi {
 		Userinfo user = (Userinfo) req.getAttribute("user");
 		List<Map> list = null;
 				
+		String openid = String.valueOf(map.get("openid"));
 		String pagenum = String.valueOf(map.get("pagenum"));
 		String pagesize = String.valueOf(map.get("pagesize"));
 		String keywords = String.valueOf(map.get("keywords"));
 		System.out.println(pagenum);
 		System.out.println(pagesize);
 		System.out.println(keywords);
-		if(pagesize == null || "".equals(pagesize) || "null".equals(pagesize) || pagenum == null || "".equals(pagenum) || "null".equals(pagenum) ){
+		if(openid == null || "".equals(openid) || "null".equals(openid) ||pagesize == null || "".equals(pagesize) || "null".equals(pagesize) || pagenum == null || "".equals(pagenum) || "null".equals(pagenum) ){
 			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
@@ -254,6 +255,7 @@ public class UserApi {
 			int start = Integer.valueOf(pagenum) * Integer.valueOf(pagesize);
 			map.put("start", start);
 			map.put("size", Integer.valueOf(pagesize));
+			map.put("openid", openid);
 			if(keywords == null || "".equals(keywords) || "null".equals(keywords)){
 				System.out.println();
 				list = followServiceImpl.listUser(map);
