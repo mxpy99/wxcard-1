@@ -51,16 +51,19 @@ public class FollowServiceImpl implements FollowService{
 
 	@Override
 	public List<Map> listUser(Map map) throws Exception {
-		String openid = (String) map.get("openid");
-		List<Map> list1 = followDaoImpl.listUser(map);
+		String userid = (String) map.get("userid");
+		//查询用户列表
+		List<Map> listuser = followDaoImpl.listUser(map);
 		List<Map> list2 = new ArrayList<Map>();
-		for (Map map1 : list1) {
-			map1.put("openid", openid);
+		for (Map map1 : listuser) {
+			map1.put("userid", userid);
 			Map map2 = followDaoImpl.selectByuseridAndcardid(map1);
 			if(map2 != null ){
+				System.out.println("####################");
 				map1.remove("openid");
 				map1.put("isconcern", "1");
 			}else{
+				System.out.println("******************");
 				map1.remove("openid");
 				map1.put("isconcern", "0");
 			}

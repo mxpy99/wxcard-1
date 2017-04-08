@@ -255,7 +255,7 @@ public class UserApi {
 			int start = Integer.valueOf(pagenum) * Integer.valueOf(pagesize);
 			map.put("start", start);
 			map.put("size", Integer.valueOf(pagesize));
-			map.put("openid", openid);
+			map.put("userid", user.getUserid());
 			if(keywords == null || "".equals(keywords) || "null".equals(keywords)){
 				System.out.println();
 				list = followServiceImpl.listUser(map);

@@ -93,6 +93,7 @@ public class UserinfoServiceImpl implements UserinfoService{
 			map.put("openid", openid);
 			map.put("userid", String.valueOf(nextUserId));
 			userinfoDao.insertUserinfo(map);
+			//新增cardcase
 			Cardcase cardcase = new Cardcase();
 			cardcase.setCardid(String.valueOf(nextUserId));
 			cardcase.setUserid(String.valueOf(nextUserId));
@@ -103,6 +104,8 @@ public class UserinfoServiceImpl implements UserinfoService{
 			map.put("trdsession", nextSession);
 			map.put("sessionkey", session_key);
 			userloginDao.insertUserlogin(map);
+			map.clear();
+			map.put("isnewuser", "1");
 		}else{
 			//更新用户 userlogin
 			map.clear();
@@ -111,8 +114,10 @@ public class UserinfoServiceImpl implements UserinfoService{
 			map.put("sessionkey", session_key);
 			map.put("userid", user.getUserid());
 			userloginDao.updateUserlogin(map);
+			map.clear();
+			map.put("isnewuser", "0");
 		}
-		map.clear();
+		
 		map.put("trdsession", nextSession);
 		map.put("sessionkey", session_key);
 		map.put("openid", openid);
