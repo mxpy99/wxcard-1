@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxccase.dao.CardcaseDao" >
 	<insert id="insertCard" parameterType="com.wxccase.entity.Cardcase">
-			INSERT INTO CARDINFO(CARDID,USERID,CLASSIFYID,ICON,USERNAME,PROFESSION,ISCONCERN,CARDDESCRIBE,COMPANY,ADDRESS,QQNUMBER,WECHATNUMBER,PHONENUMBER,TELEPHONENUMBER,FAXNUMBER,WEBSITE,MAIL,COMPANYLOGO) 
-			VALUES(#{cardid}, #{userid}, #{classifyid}, #{icon}, #{username}, #{profession}, #{isconcern}, #{carddescribe}, #{company}, #{address}, #{qqnumber}, #{wechatnumber}, #{phonenumber}, #{telephonenumber}, #{faxnumber}, #{website}, #{mail}, #{companylogo}) 
+			INSERT INTO CARDINFO(CARDID,USERID,CLASSIFYID,ICON,USERNAME,PROFESSION,GENDER,CARDDESCRIBE,COMPANY,ADDRESS,QQNUMBER,WECHATNUMBER,PHONENUMBER,TELEPHONENUMBER,FAXNUMBER,WEBSITE,MAIL,COMPANYLOGO) 
+			VALUES(#{cardid}, #{userid}, #{classifyid}, #{icon}, #{username}, #{profession}, #{gender}, #{carddescribe}, #{company}, #{address}, #{qqnumber}, #{wechatnumber}, #{phonenumber}, #{telephonenumber}, #{faxnumber}, #{website}, #{mail}, #{companylogo}) 
 	</insert>
 	
 	<update id="updateCard" parameterType="com.wxccase.entity.Cardcase">
 			UPDATE CARDINFO 
 			SET 
-			   CLASSIFYID = #{classifyid},ICON = #{icon},USERNAME = #{username},PROFESSION = #{profession},ISCONCERN = #{isconcern},CARDDESCRIBE = #{carddescribe},COMPANY = #{company},ADDRESS = #{address},QQNUMBER = #{qqnumber},WECHATNUMBER = #{wechatnumber},PHONENUMBER = #{phonenumber},TELEPHONENUMBER = #{telephonenumber}, FAXNUMBER = #{faxnumber} ,WEBSITE = #{website},MAIL = #{mail},COMPANYLOGO = #{companylogo}
+			   CLASSIFYID = #{classifyid},ICON = #{icon},USERNAME = #{username},PROFESSION = #{profession},GENDER = #{gender},CARDDESCRIBE = #{carddescribe},COMPANY = #{company},ADDRESS = #{address},QQNUMBER = #{qqnumber},WECHATNUMBER = #{wechatnumber},PHONENUMBER = #{phonenumber},TELEPHONENUMBER = #{telephonenumber}, FAXNUMBER = #{faxnumber} ,WEBSITE = #{website},MAIL = #{mail},COMPANYLOGO = #{companylogo}
 			where
 			   CARDID = #{cardid}
 	</update>

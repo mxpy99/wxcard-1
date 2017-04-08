@@ -111,13 +111,13 @@ public class CardApi {
 		
 		String openid = String.valueOf( map.get("openid"));
 		String classifyid = String.valueOf(map.get("classifyid"));
-		String cardid = String.valueOf(map.get("cardid"));
 		
-		if(cardid == null || "".equals(cardid) || "null".equals(cardid) || openid == null || "".equals(openid) || "null".equals(openid) || classifyid == null || "".equals(classifyid) || "null".equals(classifyid) ){
+		if( openid == null || "".equals(openid) || "null".equals(openid) || classifyid == null || "".equals(classifyid) || "null".equals(classifyid) ){
 			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
 		}
 		
 		try {
+			map.put("cardid", user.getUserid());
 			map = cardServiceImpl.updateCard(map);
 		} catch (Exception e) {
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);

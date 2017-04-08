@@ -9,7 +9,7 @@ public class Cardcase implements Serializable{
 	private String icon;
 	private String username;
 	private String profession;
-	private String isconcern;
+	private String gender;
 	private String carddescribe;
 	private String company;
 	private String address;
@@ -58,11 +58,11 @@ public class Cardcase implements Serializable{
 	public void setProfession(String profession) {
 		this.profession = profession;
 	}
-	public String getIsconcern() {
-		return isconcern;
+	public String getGender() {
+		return gender;
 	}
-	public void setIsconcern(String isconcern) {
-		this.isconcern = isconcern;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 	public String getCarddescribe() {
 		return carddescribe;
@@ -135,7 +135,7 @@ public class Cardcase implements Serializable{
 		return "Cardcase [cardid=" + cardid + ", userid=" + userid
 				+ ", classifyid=" + classifyid + ", icon=" + icon
 				+ ", username=" + username + ", profession=" + profession
-				+ ", isconcern=" + isconcern + ", carddescribe=" + carddescribe
+				+ ", isconcern=" + gender + ", carddescribe=" + carddescribe
 				+ ", company=" + company + ", address=" + address
 				+ ", qqnumber=" + qqnumber + ", wechatnumber=" + wechatnumber
 				+ ", phonenumber=" + phonenumber + ", telephonenumber="

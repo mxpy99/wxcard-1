@@ -32,7 +32,7 @@ public class CardServiceImpl implements CardService{
 		cardcase.setIcon(((String) map.get("icon")));
 		cardcase.setUsername(String.valueOf( map.get("username")));
 		cardcase.setProfession(String.valueOf( map.get("profession")));
-		cardcase.setIsconcern(String.valueOf(map.get("isconcern")));
+		cardcase.setGender(String.valueOf(map.get("gender")));
 		cardcase.setCarddescribe(String.valueOf( map.get("carddescribe")));
 		cardcase.setCompany(String.valueOf( map.get("company")));
 		cardcase.setAddress(String.valueOf( map.get("address")));
@@ -63,7 +63,7 @@ public class CardServiceImpl implements CardService{
 		cardcase.setIcon(((String) map.get("icon")));
 		cardcase.setUsername(String.valueOf( map.get("username")));
 		cardcase.setProfession(String.valueOf( map.get("profession")));
-		cardcase.setIsconcern(String.valueOf(map.get("isconcern")));
+		cardcase.setGender(String.valueOf(map.get("gender")));
 		cardcase.setCarddescribe(String.valueOf( map.get("carddescribe")));
 		cardcase.setCompany(String.valueOf( map.get("company")));
 		cardcase.setAddress(String.valueOf( map.get("address")));
