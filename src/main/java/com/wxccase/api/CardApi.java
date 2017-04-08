@@ -106,7 +106,8 @@ public class CardApi {
 	@RequestMapping("/update")
 	public @ResponseBody Map updatecard(HttpServletResponse resp,HttpServletRequest req) throws GlobalErrorInfoException{
 		Map map = (Map) req.getAttribute("info");
-		
+		System.out.println("***********************************");
+		System.out.println(req.getCharacterEncoding()+"###############################");
 		Userinfo user = (Userinfo) req.getAttribute("user");
 		
 		String openid = String.valueOf( map.get("openid"));

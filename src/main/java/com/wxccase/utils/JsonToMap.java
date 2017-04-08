@@ -9,9 +9,13 @@ public class JsonToMap {
 
 	public Map jsonToMapUtil(String str) throws Exception{
 		System.out.println(str);
-		//str = new String(str.getBytes("ISO-8859-1"),"UTF-8");
+		
+		//str = new String(str.getBytes("GBK"),"UTF-8");
 		//System.out.println(str);
 		Map map = JSON.parseObject(str, Map.class);
+		
 		return map;
 	}
+	
+   
 }
