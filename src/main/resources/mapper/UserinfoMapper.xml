@@ -15,7 +15,7 @@
 	
 	<!-- 更改用户的名片信息companylogo -->
 	<update id="updateLogo" parameterType="java.util.Map">
-		UPDATE CARDINFO SET COMPANYLOGO = #{companylogo} WHERE USERID = #{USERID}
+		UPDATE CARDINFO SET COMPANYLOGO = #{companylogo} WHERE USERID = #{userid}
 	</update>
 	
 	<select id="selectUserinfo" parameterType="java.util.Map" resultType="com.wxccase.entity.Userinfo">

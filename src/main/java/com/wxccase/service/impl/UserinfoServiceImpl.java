@@ -106,6 +106,7 @@ public class UserinfoServiceImpl implements UserinfoService{
 			userloginDao.insertUserlogin(map);
 			map.clear();
 			map.put("isnewuser", "1");
+			map.put("userid", String.valueOf(nextUserId));
 		}else{
 			//更新用户 userlogin
 			map.clear();
@@ -116,6 +117,7 @@ public class UserinfoServiceImpl implements UserinfoService{
 			userloginDao.updateUserlogin(map);
 			map.clear();
 			map.put("isnewuser", "0");
+			map.put("userid", user.getUserid());
 		}
 		
 		map.put("trdsession", nextSession);
