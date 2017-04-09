@@ -98,7 +98,7 @@ public class UserApi {
 		String name = file.getOriginalFilename();
 		String companylogo = name.substring(name.lastIndexOf("."));
 		System.out.println(companylogo);
-		String path = "d:/wxcard/images/"+openid+companylogo;  
+		String path = "d:/wxcard/images/"+user.getUserid()+companylogo;  
 		File files = new File(path);
 		file.transferTo(files);
 		
