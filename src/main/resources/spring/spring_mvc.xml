@@ -45,6 +45,7 @@
     	<mvc:interceptor>
     		<mvc:mapping path="/**"/>
     		<mvc:exclude-mapping path="/extra/**"/>
+    		<mvc:exclude-mapping path="/extra/respicon"/>
     		<bean class="com.wxccase.interceptor.unit.FormatInterceptor"/>
     	</mvc:interceptor> 
     	
@@ -52,6 +53,7 @@
     		<mvc:mapping path="/**"/>
     		<mvc:exclude-mapping path="/extra/**"/>
     		<mvc:exclude-mapping path="/onlogin"/>
+    		<mvc:exclude-mapping path="/extra/respicon"/>
     		<bean class="com.wxccase.interceptor.unit.TokenidIntercepter"></bean>
     	</mvc:interceptor>
     </mvc:interceptors>

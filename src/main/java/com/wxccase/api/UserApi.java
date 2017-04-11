@@ -153,6 +153,12 @@ public class UserApi {
 		return map;
 	}
 	
+	@RequestMapping("/extra/respicon")
+	private @ResponseBody Map respIcon(@RequestBody String json) throws Exception{
+		Map jsonToMapUtil = jsonToMap.jsonToMapUtil(json);
+		return jsonToMapUtil;
+	}
+	
 	@RequestMapping("/insertfollow")
 	private @ResponseBody Map insertFollow(HttpServletResponse resp,HttpServletRequest req) throws Exception{
 		

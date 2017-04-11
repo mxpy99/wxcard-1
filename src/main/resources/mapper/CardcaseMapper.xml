@@ -9,7 +9,7 @@
 	<update id="updateCard" parameterType="com.wxccase.entity.Cardcase">
 			UPDATE CARDINFO 
 			SET 
-			   CLASSIFYID = #{classifyid},ICON = #{icon},USERNAME = #{username},PROFESSION = #{profession},GENDER = #{gender},CARDDESCRIBE = #{carddescribe},COMPANY = #{company},ADDRESS = #{address},QQNUMBER = #{qqnumber},WECHATNUMBER = #{wechatnumber},PHONENUMBER = #{phonenumber},TELEPHONENUMBER = #{telephonenumber}, FAXNUMBER = #{faxnumber} ,WEBSITE = #{website},MAIL = #{mail} 
+			   CLASSIFYID = #{classifyid},USERNAME = #{username},PROFESSION = #{profession},GENDER = #{gender},CARDDESCRIBE = #{carddescribe},COMPANY = #{company},ADDRESS = #{address},QQNUMBER = #{qqnumber},WECHATNUMBER = #{wechatnumber},PHONENUMBER = #{phonenumber},TELEPHONENUMBER = #{telephonenumber}, FAXNUMBER = #{faxnumber} ,WEBSITE = #{website},MAIL = #{mail} 
 			where
 			   CARDID = #{cardid}
 	</update>
