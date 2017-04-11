@@ -41,6 +41,13 @@ public interface CardService {
 	 */
 	public Cardcase selectCardDetail(Map map) throws Exception ;
 	/**
+	 * 更改icon
+	 * @param map
+	 * @return
+	 * @throws Exception
+	 */
+	public void updateCardIcon(Map map) throws Exception ;
+	/**
 	 * 查询总数
 	 * @param map
 	 * @return

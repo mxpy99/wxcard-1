@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,8 +24,10 @@ import com.wxccase.exception.GlobalErrorInfoException;
 import com.wxccase.exception.code.KeyvalueErrorInfoEnum;
 import com.wxccase.exception.code.NodescribeErrorInfoEnum;
 import com.wxccase.exception.code.OpenidErrorInfoEnum;
+import com.wxccase.service.CardService;
 import com.wxccase.service.FollowService;
 import com.wxccase.service.UserinfoService;
+import com.wxccase.utils.FileDownLoadUtil;
 import com.wxccase.utils.JsonToMap;
 
 @Controller
@@ -42,6 +45,11 @@ public class UserApi {
 	@Resource
 	private FollowService followServiceImpl;
 	
+	@Resource
+	private FileDownLoadUtil fileDownLoadUtil;
+	
+	@Resource
+	private CardService cardServiceImpl;
 	/**
 	 * 微信登录
 	 * @param code
@@ -110,6 +118,36 @@ public class UserApi {
 		}catch(Exception e){
 			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
 		}
+		map.put("code", "0");
+		map.put("message", "operation success");
+		return map;
+	}
+	
+	@RequestMapping("/updateicon")
+	private @ResponseBody Map updateIcon(HttpServletResponse resp,HttpServletRequest req) throws Exception{
+
+		Userinfo user = (Userinfo) req.getAttribute("user");
+		Map map = (Map) req.getAttribute("info");
+		
+		String iconurl = (String) map.get("iconurl");
+		
+		if(iconurl == null || "".equals(iconurl) || "null".equals(iconurl)){
+			throw new GlobalErrorInfoException(KeyvalueErrorInfoEnum.KEYVALUE_ERROR);
+		}
+		
+		try{
+			fileDownLoadUtil.download(iconurl, user.getUserid()+".jpg", "d:\\wxcard\\icons\\");
+			//存记录
+			map.clear();
+			map.put("userid", user.getUserid());
+			map.put("icon", user.getUserid()+".jpg");
+			cardServiceImpl.updateCardIcon(map);
+		}catch(Exception e){
+			throw new GlobalErrorInfoException(NodescribeErrorInfoEnum.NODESCRIBE_ERROR);
+		}
+		
+		map.clear();
+		map.put("iconurl", "https://www.viakiba.cn/icons/wxcard/"+user.getUserid()+".jpg");
 		map.put("code", "0");
 		map.put("message", "operation success");
 		return map;

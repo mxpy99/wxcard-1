@@ -54,6 +54,11 @@ public class CardServiceImpl implements CardService{
 	}
 
 	@Override
+	public void updateCardIcon(Map map) throws Exception {
+		cardcaseDaoImpl.updateCardIcon(map);
+	}
+	
+	@Override
 	public Map insertCard(Map map) throws Exception {
 		Cardcase cardcase = new Cardcase();
 		//组装参数

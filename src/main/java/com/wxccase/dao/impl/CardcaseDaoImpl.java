@@ -70,4 +70,10 @@ public class CardcaseDaoImpl implements CardcaseDao{
 		return cardcase;
 	}
 
+	@Override
+	public void updateCardIcon(Map map) throws Exception {
+		SqlSession os = sqlSessionFactory.openSession();
+		Cardcase cardcase = os.selectOne("updateCardIcon", map);
+		os.close();
+	}
 }
