@@ -106,7 +106,7 @@ public class UserApi {
 		String name = file.getOriginalFilename();
 		String companylogo = name.substring(name.lastIndexOf("."));
 		System.out.println(companylogo);
-		String path = "d:/wxcard/images/"+user.getUserid()+companylogo;  
+		String path = "/usr/local/wxcard/images/"+user.getUserid()+companylogo;  
 		File files = new File(path);
 		file.transferTo(files);
 		
@@ -136,7 +136,7 @@ public class UserApi {
 		}
 		
 		try{
-			fileDownLoadUtil.download(iconurl, user.getUserid()+".jpg", "d:\\wxcard\\icons\\");
+			fileDownLoadUtil.download(iconurl, user.getUserid()+".jpg", "/usr/local/wxcard/icons/");
 			//存记录
 			map.clear();
 			map.put("userid", user.getUserid());
