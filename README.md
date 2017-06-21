@@ -4,6 +4,14 @@
 代码地址：
 	https://github.com/viakiba/cardcase
 ```
+## 接口列表说明
+```html
+https://github.com/viakiba/wxcard/wiki
+```
+## 小程序前端代码地址
+```html
+https://github.com/bangzi/WXMyCard
+```
 #### 技术要点
 ```html
 1.myeclipse/maven(开发工具)
