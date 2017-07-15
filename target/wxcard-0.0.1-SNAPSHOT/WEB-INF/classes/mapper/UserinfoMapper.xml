@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxccase.dao.UserinfoDao" >
+	<insert id="insertUserinfo" parameterType="java.util.Map">
+		INSERT INTO USERINFO VALUES(#{userid},#{openid},#{accountname},#{gender},#{avatarurl})
+	</insert>
+	
+	<insert id="insertFaq" parameterType="java.util.Map">
+		INSERT INTO FAQ(FAQID,USERID,EMAIL,DESCRIPTION) VALUES(#{faqid},#{userid},#{email},#{description})
+	</insert>
+	
+	<update id="updateUserinfo" parameterType="java.util.Map">
+		
+	</update>
+	
+	<!-- 更改用户的名片信息companylogo -->
+	<update id="updateLogo" parameterType="java.util.Map">
+		UPDATE CARDINFO SET COMPANYLOGO = #{companylogo} WHERE USERID = #{userid}
+	</update>
+	
+	<select id="selectUserinfo" parameterType="java.util.Map" resultType="com.wxccase.entity.Userinfo">
+		SELECT * FROM USERINFO WHERE OPENID = #{openid}
+	</select>
+	
+</mapper>

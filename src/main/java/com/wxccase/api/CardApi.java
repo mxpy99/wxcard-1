@@ -99,7 +99,6 @@ public class CardApi {
 	
 	/**
 	 * 名片的修改
-	 * @param info
 	 * @return
 	 * @throws GlobalErrorInfoException 
 	 */
@@ -128,7 +127,6 @@ public class CardApi {
 	
 	/**
 	 * 名片的删除
-	 * @param info
 	 * @return
 	 * @throws GlobalErrorInfoException 
 	 */
@@ -156,7 +154,6 @@ public class CardApi {
 	
 	/**
 	 * 名片的新增
-	 * @param info
 	 * @return
 	 * @throws GlobalErrorInfoException 
 	 */
