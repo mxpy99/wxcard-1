@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxccase.dao.CardcaseDao" >
+	<insert id="insertCard" parameterType="com.wxccase.entity.Cardcase">
+			insert into cardinfo(cardid,userid,classifyid,username,profession,gender,carddescribe,company,address,qqnumber,wechatnumber,phonenumber,telephonenumber,faxnumber,website,mail) 
+			values(#{cardid}, #{userid}, #{classifyid}, #{username}, #{profession}, #{gender}, #{carddescribe}, #{company}, #{address}, #{qqnumber}, #{wechatnumber}, #{phonenumber}, #{telephonenumber}, #{faxnumber}, #{website}, #{mail}) 
+	</insert>
+	
+	<update id="updateCard" parameterType="com.wxccase.entity.Cardcase">
+			update cardinfo 
+			set 
+			   classifyid = #{classifyid},username = #{username},profession = #{profession},gender = #{gender},carddescribe = #{carddescribe},company = #{company},address = #{address},qqnumber = #{qqnumber},wechatnumber = #{wechatnumber},phonenumber = #{phonenumber},telephonenumber = #{telephonenumber}, faxnumber = #{faxnumber} ,website = #{website},mail = #{mail} 
+			where
+			   cardid = #{cardid}
+	</update>
+	
+	<update id="updateCardClassify" parameterType="java.util.Map">
+		update cardinfo set classifyid = #{new_classifyid} where classifyid = #{old_classifyid}
+	</update>
+	
+	<update id="updateCardIcon" parameterType="java.util.Map">
+		update cardinfo set icon = #{icon} where userid = #{userid}
+	</update>
+	
+	<select id="selectCard" parameterType="java.util.Map" resultType="com.wxccase.entity.Cardcase">
+	    select * from cardinfo where userid = #{userid}
+	     <if test="classifyid != null"> AND classifyid = #{classifyid} </if>
+	     limit #{start},#{size}
+	</select>
+	
+	<select id="selectCardDetail" parameterType="java.util.Map" resultType="com.wxccase.entity.Cardcase">
+	    select * from cardinfo where cardid = #{cardid}
+	</select>
+	
+	<select id="selectCardCount" parameterType="java.util.Map" resultType="string">
+		select count(cardid) from cardinfo where userid = #{userid}   <if test="classifyid != null"> AND classifyid = #{classifyid} </if>
+	</select>
+	
+	<delete id="deleteCard" parameterType="java.util.Map">
+		delete from cardinfo where cardid = #{cardid}
+	</delete>
+</mapper>

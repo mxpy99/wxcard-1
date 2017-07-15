@@ -3,37 +3,37 @@
 <mapper namespace="com.wxccase.dao.FollowDao" >
 	
 	<insert id="insertFollow" parameterType="java.util.Map">
-		INSERT INTO FOLLOW(FOLLOWID,USERID,CARDID) VALUES (#{followid},#{userid},#{cardid})
+		insert into follow(followid,userid,cardid) values (#{followid},#{userid},#{cardid})
 	</insert>
 	
 	<delete id="deleteFollow" parameterType="java.util.Map">
-		DELETE FROM FOLLOW WHERE USERID = #{userid} AND CARDID = #{cardid}
+		delete from follow where userid = #{userid} and cardid = #{cardid}
 	</delete>
 	
 	<select id="listFollowHelp" parameterType="java.util.Map" resultType="string">
-	    SELECT CARDID FROM FOLLOW WHERE USERID = #{userid} LIMIT #{start},#{size}
+	    select cardid from follow where userid = #{userid} limit #{start},#{size}
 	</select>
 	
 	<select id="listFollow" parameterType="java.util.Map" resultType="java.util.Map">
-	    SELECT * FROM CARDINFO WHERE CARDID IN 
+	    select * from cardinfo where cardid in 
 	    	<foreach  item="item"  index="index"  collection="list"  open="("  separator=","  close=")">
 					#{item}
 			</foreach>
 	</select>
 	
 	<select id="listUser" parameterType="java.util.Map" resultType="java.util.Map">
-	    SELECT * FROM CARDINFO 
+	    select * from cardinfo 
 	    <choose>
 			<when test="keywords != null">
-				WHERE USERNAME LIKE "%${keywords}%" OR COMPANY LIKE "%${keywords}%" LIMIT #{start},#{size} 
+				where username like "%${keywords}%" or company like "%${keywords}%" limit #{start},#{size} 
 			</when>
 			<otherwise>
-				LIMIT #{start},#{size}
+				limit #{start},#{size}
 			</otherwise>
 		</choose>
 	</select>
 	
 	<select id="selectByuseridAndcardid" parameterType="java.util.Map" resultType="java.util.Map">
-		 SELECT * FROM FOLLOW WHERE USERID=#{userid} AND CARDID=#{cardid}
+		 select * from follow where userid=#{userid} and cardid=#{cardid}
 	</select>
 </mapper>
